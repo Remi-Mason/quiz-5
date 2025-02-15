@@ -26,7 +26,7 @@
   <link rel="preload" as="image" href="images/tryagain.png">
   <link rel="preload" as="image" href="images/youwin.png">
   <link rel="preload" as="image" href="images/titre.png">
-
+  
   <style>
     /* Global Keyframes */
     @keyframes victoryAnimation {
@@ -111,7 +111,7 @@
       50%  { transform: translateY(-10px); }
       100% { transform: translateY(0); }
     }
-    /* NEW: Global mobileWindmillShake keyframes */
+    /* NEW: Mobile windmill animation keyframes defined globally */
     @keyframes mobileWindmillShake {
       0%   { transform: translateY(-30px) rotate(0deg); }
       15%  { transform: translateY(-30px) rotate(15deg); }
@@ -140,21 +140,16 @@
       height: 192px !important;
       border: 3px solid white;
     }
-    /* Centrage général des images de résultat */
+    /* General result header styling */
     #result-header {
       margin-bottom: 40px;
     }
-    /* Styles généraux */
+    /* Global styles */
     html, body {
       height: 100%;
       margin: 0;
       padding: 0;
-      background: linear-gradient(to top, 
-        #1a001f 0%, 
-        #330033 25%, 
-        #4B0082 50%, 
-        #660099 75%, 
-        #8000b3 100%);
+      background: linear-gradient(to top, #1a001f 0%, #330033 25%, #4B0082 50%, #660099 75%, #8000b3 100%);
       background-size: 100% 100%;
       animation: quizBGAnimation 10s ease infinite;
     }
@@ -213,7 +208,7 @@
       height: auto;
       pointer-events: none;
     }
-    /* Zone du quiz */
+    /* Quiz area */
     #quiz-container {
       background: url('images/wall2.png') no-repeat center center;
       background-size: cover;
@@ -324,7 +319,6 @@
       justify-content: center;
     }
     .correct-decoration { width: 60px; }
-    /* Pour l'image de bonne réponse, largeur de 80px adaptée aux GIFs */
     .correct-container .result-image.correct {
       animation: popAnimation 0.5s ease-out;
       width: 80px;
@@ -337,7 +331,7 @@
       animation: shake 0.5s ease-in-out;
       margin-top: -30px;
     }
-    /* Page finale */
+    /* Result Page */
     #result-page {  
       background: url('images/wall.png') no-repeat center center;
       display: none; 
@@ -420,7 +414,7 @@
       50%  { transform: translate(-40px, -30px); }
       100% { transform: translate(-40px, -20px); }
     }
-    /* Media Query for Mobile */
+    /* Mobile Media Query */
     @media (max-width: 480px) {
       .container {
         width: 360px;
@@ -442,110 +436,73 @@
         align-items: center;
         justify-content: center;
       }
-      .again { display: block; margin: 0 auto 0px; }
-      /* Re-define windmillShake keyframes in case needed (optional) */
-      @keyframes windmillShake {
-        0% { transform: rotate(0deg); }
-        15% { transform: rotate(15deg); }
-        30% { transform: rotate(-15deg); }
-        45% { transform: rotate(10deg); }
-        60% { transform: rotate(-10deg); }
-        75% { transform: rotate(5deg); }
-        90% { transform: rotate(-5deg); }
-        100% { transform: rotate(0deg); }
+      .again { 
+        display: block; 
+        margin: 0 auto 0px;
+        /* Remove any transform set by .again so that our override applies */
+        transform: none !important;
       }
-      .windmill-shake {
-        animation: windmillShake 0.8s ease-in-out forwards;
-        transform-origin: center;
+      /* Adjust #result-header for mobile with a more specific selector */
+      img#result-header.again:not(.victory-animation) {
+        transform: translateY(-30px) !important;
+        animation: mobileWindmillShake 0.8s ease-in-out forwards !important;
       }
       .raised {
         transform: translateY(-20px);
         margin-bottom: -10px !important;
       }
-      @media (max-width: 480px) {
-        .pikachu {
-          display: block;
-          margin: 10px auto;
-          transform: translateY(-10px)!important;
-          width: 270px !important;
-          height: 192px !important;
-        }
+      /* Other mobile adjustments */
+      .pikachu {
+        display: block;
+        margin: 10px auto;
+        transform: translateY(-10px)!important;
+        width: 270px !important;
+        height: 192px !important;
       }
-      @media (max-width: 480px) {
-        .again {
-          width: 85%;
-          margin: 0 auto;
-          transform: translateX(0px);
-        }
+      .again {
+        width: 85%;
+        margin: 0 auto;
       }
-      /* Adjust result header on mobile */
-      @media (max-width: 480px) {      
-        #result-header {
-          display: block;
-          margin: -20px auto 20px;
-          width: 85%;
-        }
+      #result-header {
+        display: block;
+        margin: -20px auto 20px;
+        width: 85%;
       }
-      @media (max-width: 480px) {      
-        .decor-right {
-          width: 60px;
-          transform: translate(30px, -5px);
-          z-index: 0;
-          padding: 12px 0px;
-          animation: levitateRight 1s ease-in-out infinite;
-        }
+      .decor-right {
+        width: 60px;
+        transform: translate(30px, -5px);
+        z-index: 0;
+        padding: 12px 0px;
+        animation: levitateRight 1s ease-in-out infinite;
       }
-      @media (max-width: 480px) {      
-        .decor-left {
-          width: 60px;
-          transform: translate(-30px, -5px);
-          z-index: 0;
-          padding: 12px 0px;
-          animation: levitateLeft 1s ease-in-out infinite;
-        }
+      .decor-left {
+        width: 60px;
+        transform: translate(-30px, -5px);
+        z-index: 0;
+        padding: 12px 0px;
+        animation: levitateLeft 1s ease-in-out infinite;
       }
-      @media (max-width: 480px) {      
-        .decor-rightX {
-          width: 60px;
-          transform: translate(-30px, 0px);
-          z-index: 0;
-          padding: 12px 0px;
-        }
+      .decor-rightX {
+        width: 60px;
+        transform: translate(-30px, 0px);
+        z-index: 0;
+        padding: 12px 0px;
       }
-      @media (max-width: 480px) {      
-        .decor-leftX {
-          width: 60px;
-          transform: translate(30px, 0px);
-          z-index: 0;
-          padding: 12px 0px;
-        }
+      .decor-leftX {
+        width: 60px;
+        transform: translate(30px, 0px);
+        z-index: 0;
+        padding: 12px 0px;
       }
-      @media (max-width: 480px) {
-        .floating-title {
-          margin-top: -10px;
-          margin-bottom: 15px;
-        }
+      .floating-title {
+        margin-top: -10px;
+        margin-bottom: 15px;
       }
-      @media (max-width: 480px) {
-        #final-score { font-size: 28px !important; }
-      }
-      @media (max-width: 480px) {
-        #mute-btn { margin-top: 10px!important; }
-      }
-      @media (max-width: 480px) {
-        #result-page { padding-top: 70px; }
-      }
-      @media (max-width: 480px) {
-        .victory-animation {
-          animation: mobileVictoryAnimation 2s ease-in-out infinite !important;
-        }
-      }
-      /* New: Override #result-header for mobile (when not victory) */
-      @media (max-width: 480px) {
-        #result-header:not(.victory-animation) {
-          transform: translateY(-30px) !important;
-          animation: mobileWindmillShake 0.8s ease-in-out forwards !important;
-        }
+      #final-score { font-size: 28px !important; }
+      #mute-btn { margin-top: 10px!important; }
+      #result-page { padding-top: 70px; }
+      .victory-animation {
+        animation: mobileVictoryAnimation 2s ease-in-out infinite !important;
       }
     }
     @keyframes mobileVictoryAnimation {
@@ -559,7 +516,7 @@
   </style>
 </head>
 <body>
-  <!-- Éléments audio -->
+  <!-- Audio Elements -->
   <audio id="checkbox-sound" src="audio/select.mp3" preload="auto"></audio>
   <audio id="start-sound" src="audio/start.mp3" preload="auto"></audio>
   <audio id="correct-sound" src="audio/correct.mp3" preload="auto"></audio>
@@ -568,29 +525,24 @@
   <audio id="perfect-sound" src="audio/perfect.mp3" preload="auto"></audio>
   <audio id="imperfect-sound" src="audio/imperfect.mp3" preload="auto"></audio>
   
-  <!-- Page d'accueil -->
+  <!-- Home Page -->
   <div class="container" id="home">
-    <!-- Titre centré -->
     <img src="images/titre.png" alt="quiz ssiap1" class="floating-title">
-    <!-- Image décorative centrée -->
     <img src="images/decor1.gif" alt="pik" class="pikachu" style="z-index: 3;">
-    <!-- Bouton mute et bouton start… -->
     <img id="mute-btn" src="images/mute-off.gif" alt="Son activé" style="cursor: pointer; width: 30px; height: 25px; margin: -10px auto -2px;">
     <button id="start-btn"><img src="images/start.png" style="margin-bottom: -15px; width: 130px"></button>
   </div>
   
-  <!-- Zone du quiz -->
+  <!-- Quiz Container -->
   <div class="container" id="quiz-container">
     <div id="question-counter">Question 1 / 3</div>
     <div id="question-text">[Texte de la question]</div>
-    <div class="options" id="options">
-      <!-- Les options seront générées dynamiquement -->
-    </div>
+    <div class="options" id="options"></div>
     <button id="validate-btn">Valider</button>
     <div id="result"></div>
   </div>
   
-  <!-- Page de résultats finale -->
+  <!-- Result Page -->
   <div class="container" id="result-page">
     <img id="result-header" src="images/tryagain.png" alt="encore" class="again">
     <img id="final-image" src="images/lose1.gif" alt="Résultat" style="display:block; margin: -15px auto 20px;">
@@ -610,7 +562,7 @@
         }, 18000);
       }
     });
-    // Données du quiz
+    // Quiz Data
     const quizData = [
       {
         question: "Sur quel feu peut-on utiliser un extincteur à eau pulvérisée avec additif (A.F.F.F.) ?",
@@ -623,7 +575,7 @@
     let score = 0;
     let isMuted = false;
     
-    // Références aux éléments
+    // Element References
     const homeDiv = document.getElementById("home");
     const quizContainer = document.getElementById("quiz-container");
     const resultPage = document.getElementById("result-page");
@@ -644,12 +596,12 @@
     const correctSound = document.getElementById("correct-sound");
     const incorrectSound = document.getElementById("incorrect-sound");
     
-    // Fonction de basculement mute
+    // Mute Toggle Function
     function muteToggleHandler() {
       isMuted = !isMuted;
       [startSound, correctSound, incorrectSound, checkboxSound,
-        document.getElementById("perfect-sound"),
-        document.getElementById("imperfect-sound")
+       document.getElementById("perfect-sound"),
+       document.getElementById("imperfect-sound")
       ].forEach(audio => { audio.muted = isMuted; });
       if (isMuted) {
         this.src = "images/mute-on.gif";
@@ -670,7 +622,7 @@
       }
     });
     
-    // Démarrage du quiz
+    // Start Quiz
     startBtn.addEventListener("click", () => {
       if (screen.orientation && screen.orientation.lock) {
         screen.orientation.lock("portrait").catch(error => { console.log("Le verrouillage de l'orientation a échoué :", error); });
@@ -688,7 +640,7 @@
       }, 1500);
     });
     
-    // Affichage de la question
+    // Display Question
     function showQuestion() {
       resultDiv.innerHTML = "";
       const data = quizData[currentQuestion];
@@ -713,7 +665,7 @@
       });
     }
     
-    // Comparaison des tableaux
+    // Compare Arrays
     function arraysEqual(a, b) {
       if (a.length !== b.length) return false;
       const sortedA = a.slice().sort();
@@ -765,7 +717,7 @@
       }, delayTime);
     });
     
-    // Affichage de la page finale
+    // Display Result Page
     function showResultPage() {
       quizContainer.style.display = "none";
       resultPage.style.display = "block";
@@ -774,10 +726,7 @@
         restartBtn.style.animation = "borderGlowGreen 2s ease-in-out infinite";
         resultPage.style.background = "url('images/wall.png') no-repeat center center";
         resultHeader.src = "images/youwin.png";
-        
         resultHeader.classList.add("victory-animation");
-        
-        // Appliquer le décalage spécifique sur mobile pour victory
         if (window.innerWidth <= 480) {
           resultHeader.style.transform = "translateY(-30px)";
           resultHeader.style.marginTop = "0";
@@ -785,12 +734,9 @@
           resultHeader.style.transform = "translateX(0)";
           resultHeader.style.marginTop = "10px";
         }
-        
         finalScoreEl.style.color = "#00ff1a";
         finalImage.classList.add("raised");
         finalImage.style.width = (window.innerWidth <= 480) ? "150px" : "190px";
-        
-        // --- Ajout de l'overlay GIF de victoire ---
         if (!document.getElementById("confet-overlay")) {
           let overlay = document.createElement("img");
           overlay.id = "confet-overlay";
@@ -809,8 +755,6 @@
         restartBtn.style.animation = "borderGlow2 2s ease-in-out infinite";
         resultPage.style.background = "url('images/wall2.png') no-repeat center center";
         resultHeader.src = "images/tryagain.png";
-        
-        // For non-mobile, set inline styles; for mobile, remove them so that media query applies.
         if (window.innerWidth > 480) {
           resultHeader.style.transform = "translateY(-20px)";
           resultHeader.style.marginTop = "-30px";
@@ -818,9 +762,8 @@
           resultHeader.style.transform = "";
           resultHeader.style.marginTop = "";
         }
-        
         finalScoreEl.style.color = "red";
-        // Only add windmill-shake class if not mobile
+        // On mobile, remove the windmill-shake class so our media query takes over.
         if (window.innerWidth > 480) {
           resultHeader.classList.add("windmill-shake");
         } else {
