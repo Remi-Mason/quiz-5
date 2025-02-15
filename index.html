@@ -41,6 +41,7 @@
     .victory-animation {
       animation: victoryAnimation 2s ease-in-out infinite;
       transform-origin: center;
+	  margin-top: -20px !important;
     }
     @keyframes windmillShake {
       0% { transform: rotate(0deg); }
@@ -494,7 +495,7 @@
       #final-score { font-size: 28px !important; }
     }
     @media (max-width: 480px) {
-      #mute-btn { margin-top: 10px!important; }
+      #mute-btn { margin-top: 0px!important; }
     }
     @media (max-width: 480px) {
       #result-page { padding-top: 70px; }
@@ -505,12 +506,12 @@
       }
     }
     @keyframes mobileVictoryAnimation {
-      0%   { transform: translateY(-40px) scale(1) rotate(0deg); }
-      20%  { transform: translateY(-40px) scale(1.1) rotate(3deg); }
-      40%  { transform: translateY(-40px) scale(1) rotate(-3deg); }
-      60%  { transform: translateY(-40px) scale(1.1) rotate(3deg); }
-      80%  { transform: translateY(-40px) scale(1) rotate(-3deg); }
-      100% { transform: translateY(-40px) scale(1) rotate(0deg); }
+      0%   { transform: translateY(-60px) scale(1) rotate(0deg); }
+      20%  { transform: translateY(-60px) scale(1.1) rotate(3deg); }
+      40%  { transform: translateY(-60px) scale(1) rotate(-3deg); }
+      60%  { transform: translateY(-60px) scale(1.1) rotate(3deg); }
+      80%  { transform: translateY(-60px) scale(1) rotate(-3deg); }
+      100% { transform: translateY(-60px) scale(1) rotate(0deg); }
     }
   </style>
 </head>
@@ -736,6 +737,7 @@ function showResultPage() {
     resultPage.style.background = "url('images/wall.png') no-repeat center center";
     resultHeader.src = "images/youwin.png";
     resultHeader.classList.add("victory-animation");
+	 resultHeader.style = "margin-bottom: 10px";
 
     // Positioning for youwin.png (header)
     if (window.innerWidth <= 480) {
@@ -806,13 +808,10 @@ function showResultPage() {
 
   if (score === quizData.length) {
     finalImage.src = "images/perfect.gif";
+	finalImage.style = "margin-bottom: 30px";
+	
   } else {
-    finalImage.src = "images/lose1.gif";
-    finalImage.classList.add("lose1-scale");
-    setTimeout(() => {
-      finalImage.src = "images/lose2.gif";
-      finalImage.classList.remove("lose1-scale");
-    }, 1000);
+    finalImage.src = "images/lose2.gif";
   }
 
   if (score === quizData.length) {
