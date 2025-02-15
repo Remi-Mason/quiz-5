@@ -522,7 +522,7 @@ background: linear-gradient(to top,
       }
       @media (max-width: 480px) {      
         .decor-rightX {
-          width: 80px;
+          width: 60px;
           transform: translate(-30px, 0px);
           z-index: 0;
           padding: 12px 0px;
@@ -530,7 +530,7 @@ background: linear-gradient(to top,
       }
       @media (max-width: 480px) {      
         .decor-leftX {
-          width: 80px;
+          width: 60px;
           transform: translate(30px, 0px);
           z-index: 0;
           padding: 12px 0px;
@@ -558,15 +558,15 @@ background: linear-gradient(to top,
 }
  @media (max-width: 480px) {
 @keyframes levitateLeftX {
-  0%   { transform: translate(30px, -13px); }
-  50%  { transform: translate(30px, 3px); }
-  100% { transform: translate(30px, -13px); }
+  0%   { transform: translate(30px, -20px); }
+  50%  { transform: translate(30px, 0px); }
+  100% { transform: translate(30px, -20px); }
 }
  @media (max-width: 480px) {
 @keyframes levitateRightX {
-  0%   { transform: translate(-30px, -13px); }
-  50%  { transform: translate(-30px, 3px); }
-  100% { transform: translate(-30px, -13px); }
+  0%   { transform: translate(-30px, -20px); }
+  50%  { transform: translate(-30px, 0px); }
+  100% { transform: translate(-30px, -20px); }
 }
 }
 .centipod {
@@ -576,12 +576,14 @@ background: linear-gradient(to top,
 @media (max-width: 480px) {
   #question-text { font-size: 20px; }
 }
-.lose1-scale {
-  transform: scale(-1.2) !important;
-}
 	 @media (max-width: 480px) {
   #final-score {
     font-size: 28px !important; /* Increase the font size as needed */
+  }
+}
+	 @media (max-width: 480px) {
+  #mute-btn {
+    margin-top: 10px!important; /* Ajustez la valeur selon vos besoins */
   }
 }
   </style>
