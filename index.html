@@ -111,7 +111,7 @@
       50%  { transform: translateY(-10px); }
       100% { transform: translateY(0); }
     }
-    /* NEW: Mobile windmill animation keyframes defined globally */
+    /* NEW: Global mobileWindmillShake keyframes */
     @keyframes mobileWindmillShake {
       0%   { transform: translateY(-30px) rotate(0deg); }
       15%  { transform: translateY(-30px) rotate(15deg); }
@@ -122,7 +122,7 @@
       90%  { transform: translateY(-30px) rotate(-5deg); }
       100% { transform: translateY(-30px) rotate(0deg); }
     }
-    /* Appliquer l'animation au titre */
+    /* Title Animation */
     .floating-title {
       position: relative;
       z-index: 3;
@@ -140,11 +140,11 @@
       height: 192px !important;
       border: 3px solid white;
     }
-    /* General result header styling */
+    /* Result Header General Styling */
     #result-header {
       margin-bottom: 40px;
     }
-    /* Global styles */
+    /* Global Page Styles */
     html, body {
       height: 100%;
       margin: 0;
@@ -172,7 +172,7 @@
       transition: transform 0.3s ease;
       position: relative;
     }
-    /* Page d'accueil */
+    /* Home Page */
     #home { width: 360px; }
     #start-btn {
       display: flex;
@@ -208,7 +208,7 @@
       height: auto;
       pointer-events: none;
     }
-    /* Quiz area */
+    /* Quiz Container */
     #quiz-container {
       background: url('images/wall2.png') no-repeat center center;
       background-size: cover;
@@ -439,19 +439,18 @@
       .again { 
         display: block; 
         margin: 0 auto 0px;
-        /* Remove any transform set by .again so that our override applies */
+        /* Ensure no conflicting inline transforms */
         transform: none !important;
       }
-      /* Adjust #result-header for mobile with a more specific selector */
-      img#result-header.again:not(.victory-animation) {
+      /* Force mobile windmill animation on result-header (tryagain) */
+      #result-header.again:not(.victory-animation) {
+        animation: mobileWindmillShake 0.8s ease-in-out infinite !important;
         transform: translateY(-30px) !important;
-        animation: mobileWindmillShake 0.8s ease-in-out forwards !important;
       }
       .raised {
         transform: translateY(-20px);
         margin-bottom: -10px !important;
       }
-      /* Other mobile adjustments */
       .pikachu {
         display: block;
         margin: 10px auto;
@@ -625,7 +624,7 @@
     // Start Quiz
     startBtn.addEventListener("click", () => {
       if (screen.orientation && screen.orientation.lock) {
-        screen.orientation.lock("portrait").catch(error => { console.log("Le verrouillage de l'orientation a échoué :", error); });
+        screen.orientation.lock("portrait").catch(error => { console.log("Orientation lock failed:", error); });
       }
       startSound.play();
       startBtn.style.boxShadow = "0 0 20px rgba(0, 255, 0, 1)";
@@ -755,6 +754,7 @@
         restartBtn.style.animation = "borderGlow2 2s ease-in-out infinite";
         resultPage.style.background = "url('images/wall2.png') no-repeat center center";
         resultHeader.src = "images/tryagain.png";
+        // Do not set inline transforms for mobile so media query can take over.
         if (window.innerWidth > 480) {
           resultHeader.style.transform = "translateY(-20px)";
           resultHeader.style.marginTop = "-30px";
@@ -763,7 +763,7 @@
           resultHeader.style.marginTop = "";
         }
         finalScoreEl.style.color = "red";
-        // On mobile, remove the windmill-shake class so our media query takes over.
+        // Remove any desktop-specific class on mobile
         if (window.innerWidth > 480) {
           resultHeader.classList.add("windmill-shake");
         } else {
@@ -772,13 +772,7 @@
         finalImage.classList.remove("raised");
         finalImage.style.width = "190px";
         finalImage.style.transform = "";
-        setInterval(() => {
-          resultHeader.classList.remove("windmill-shake");
-          void resultHeader.offsetWidth;
-          if (window.innerWidth > 480) {
-            resultHeader.classList.add("windmill-shake");
-          }
-        }, 2800);
+        // (Remove setInterval for simplicity)
       }
       resultPage.style.backgroundSize = "cover";
       resultPage.style.backgroundPosition = "center";
