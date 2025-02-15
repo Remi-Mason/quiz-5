@@ -58,23 +58,8 @@
       transform-origin: center;
     }
     
-    /* Animation mobile : translation constante en haut et oscillation infinie */
-    @media (max-width: 480px) {
-      @keyframes windmillShakeMobile {
-        0%   { transform: translateY(-50px) rotate(0deg); }
-        15%  { transform: translateY(-50px) rotate(15deg); }
-        30%  { transform: translateY(-50px) rotate(-15deg); }
-        45%  { transform: translateY(-50px) rotate(10deg); }
-        60%  { transform: translateY(-50px) rotate(-10deg); }
-        75%  { transform: translateY(-50px) rotate(5deg); }
-        90%  { transform: translateY(-50px) rotate(-5deg); }
-        100% { transform: translateY(-50px) rotate(0deg); }
-      }
-      .windmill-shake-mobile {
-        animation: windmillShakeMobile 0.8s ease-in-out infinite;
-        transform-origin: center;
-      }
-    }
+    /* Pour PC et mobile, on utilise la même animation windmillShake.
+       Le décalage vers le haut sur mobile est géré par le conteneur .result-header-wrapper. */
     
     @keyframes levitateLeft {
       0%   { transform: translate(40px, -10px); }
@@ -150,6 +135,17 @@
     }
     #result-header {
       margin-bottom: 40px;
+      /* Note : aucune transformation inline ici */
+    }
+    /* Conteneur pour le header de résultat.
+       Sur mobile, il sera décalé vers le haut */
+    .result-header-wrapper {
+      /* Par défaut, aucun décalage */
+    }
+    @media (max-width: 480px) {
+      .result-header-wrapper {
+        transform: translateY(-50px);
+      }
     }
     html, body {
       height: 100%;
@@ -597,8 +593,11 @@
   
   <!-- Page de résultats finale -->
   <div class="container" id="result-page">
-    <img id="result-header" src="images/tryagain.png" alt="encore" class="again">
-    <img id="final-image" src="images/lose1.gif" alt="Résultat" style="display:block; margin: -15px auto 20px;">
+    <!-- On encapsule l'image dans un conteneur pour appliquer le décalage sur mobile -->
+    <div class="result-header-wrapper">
+      <img id="result-header" src="images/tryagain.png" alt="encore" class="again">
+    </div>
+    <img id="final-image" src="images/lose2.gif" alt="Résultat" style="display:block; margin: -15px auto 20px;">
     <p id="final-score">Score : 0 sur 3</p>
     <button id="restart-btn" style="text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 3px 3px 5px black;">RECOMMENCER</button>
   </div>
@@ -786,13 +785,7 @@
         restartBtn.style.animation = "borderGlow2 2s ease-in-out infinite";
         resultPage.style.background = "url('images/wall2.png') no-repeat center center";
         resultHeader.src = "images/tryagain.png";
-        // Sur mobile, appliquer l'animation mobile qui garde le translateY constant
-        if (window.innerWidth <= 480) {
-          resultHeader.classList.remove("windmill-shake");
-          resultHeader.classList.add("windmill-shake-mobile");
-        } else {
-          resultHeader.classList.add("windmill-shake");
-        }
+        resultHeader.classList.add("windmill-shake");
       }
       resultPage.style.backgroundSize = "cover";
       resultPage.style.backgroundPosition = "center";
