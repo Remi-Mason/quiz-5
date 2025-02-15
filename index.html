@@ -887,11 +887,6 @@ if (score === quizData.length) {
   finalImage.src = "images/perfect.gif";
 } else {
   finalImage.src = "images/lose1.gif";
-  finalImage.classList.add("lose1-scale");
-  setTimeout(() => {
-    finalImage.src = "images/lose2.gif";
-    finalImage.classList.remove("lose1-scale");
-  }, 1000);
 }
       if (score === quizData.length) {
         document.getElementById("perfect-sound").currentTime = 0;
