@@ -608,9 +608,20 @@ background: linear-gradient(to top,
 	 @media (max-width: 480px) {
   #result-header:not(.victory-animation) {
     transform: translateY(-30px) !important;
-	  animation: windmillShake 0.8s ease-in-out forwards !important;
+	  animation: mobileWindmillShake 0.8s ease-in-out forwards !important;
   }
 }
+	 @media (max-width: 480px) {
+  @keyframes mobileWindmillShake {
+    0%   { transform: translateY(-30px) rotate(0deg); }
+    15%  { transform: translateY(-30px) rotate(15deg); }
+    30%  { transform: translateY(-30px) rotate(-15deg); }
+    45%  { transform: translateY(-30px) rotate(10deg); }
+    60%  { transform: translateY(-30px) rotate(-10deg); }
+    75%  { transform: translateY(-30px) rotate(5deg); }
+    90%  { transform: translateY(-30px) rotate(-5deg); }
+    100% { transform: translateY(-30px) rotate(0deg); }
+  }
   </style>
 </head>
 <body>
