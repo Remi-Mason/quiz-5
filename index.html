@@ -726,7 +726,7 @@
     });
     
     // Affichage de la page finale
-   function showResultPage() {
+  function showResultPage() {
   quizContainer.style.display = "none";
   resultPage.style.display = "block";
   const resultHeader = document.getElementById("result-header");
@@ -737,7 +737,7 @@
     resultHeader.src = "images/youwin.png";
     resultHeader.classList.add("victory-animation");
 
-    // Victory image positioning (mobile vs desktop)
+    // Positioning for youwin.png (header)
     if (window.innerWidth <= 480) {
       resultHeader.style.transform = "translateY(-30px)";
       resultHeader.style.marginTop = "0";
@@ -749,6 +749,16 @@
     finalScoreEl.style.color = "#00ff1a";
     finalImage.classList.add("raised");
     finalImage.style.width = (window.innerWidth <= 480) ? "150px" : "190px";
+
+    // Only on mobile, reduce the gap and move perfect.gif up a bit
+    if (window.innerWidth <= 480) {
+      finalImage.style.marginTop = "-25px";    // Move perfect.gif up
+      finalImage.style.marginBottom = "10px";    // Reduce gap below perfect.gif
+    } else {
+      // Reset on desktop if necessary
+      finalImage.style.marginTop = "";
+      finalImage.style.marginBottom = "";
+    }
 
     // Add overlay GIF for victory if not already present
     if (!document.getElementById("confet-overlay")) {
@@ -769,8 +779,7 @@
     restartBtn.style.animation = "borderGlow2 2s ease-in-out infinite";
     resultPage.style.background = "url('images/wall2.png') no-repeat center center";
     resultHeader.src = "images/tryagain.png";
-    
-    // Adjust positioning only on mobile
+
     if (window.innerWidth <= 480) {
       resultHeader.style.transform = "translateY(-40px)";
       resultHeader.style.marginTop = "-40px";
@@ -778,7 +787,7 @@
       resultHeader.style.transform = "translateY(-20px)";
       resultHeader.style.marginTop = "-30px";
     }
-    
+
     finalScoreEl.style.color = "red";
     resultHeader.classList.add("windmill-shake");
     finalImage.classList.remove("raised");
@@ -790,17 +799,22 @@
       resultHeader.classList.add("windmill-shake");
     }, 2800);
   }
-  
+
   resultPage.style.backgroundSize = "cover";
   resultPage.style.backgroundPosition = "center";
   finalScoreEl.textContent = `Score : ${score} sur ${quizData.length}`;
-  
+
   if (score === quizData.length) {
     finalImage.src = "images/perfect.gif";
   } else {
-    finalImage.src = "images/lose2.gif";
+    finalImage.src = "images/lose1.gif";
+    finalImage.classList.add("lose1-scale");
+    setTimeout(() => {
+      finalImage.src = "images/lose2.gif";
+      finalImage.classList.remove("lose1-scale");
+    }, 1000);
   }
-  
+
   if (score === quizData.length) {
     document.getElementById("perfect-sound").currentTime = 0;
     document.getElementById("perfect-sound").play();
