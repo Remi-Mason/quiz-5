@@ -806,13 +806,16 @@ function showResultPage() {
   resultPage.style.backgroundPosition = "center";
   finalScoreEl.textContent = `Score : ${score} sur ${quizData.length}`;
 
-  if (score === quizData.length) {
-    finalImage.src = "images/perfect.gif";
-	finalImage.style = "margin-bottom: 30px";
-	
+if (score === quizData.length) {
+  finalImage.src = "images/perfect.gif";
+  if (window.innerWidth <= 480) {
+    finalImage.style.marginBottom = "30px";
   } else {
-    finalImage.src = "images/lose2.gif";
+    finalImage.style.marginBottom = ""; // ou laissez vide pour la version PC
   }
+} else {
+  finalImage.src = "images/lose2.gif";
+}
 
   if (score === quizData.length) {
     document.getElementById("perfect-sound").currentTime = 0;
