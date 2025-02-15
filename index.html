@@ -605,22 +605,11 @@ background: linear-gradient(to top,
   80%  { transform: translateY(-40px) scale(1) rotate(-3deg); }
   100% { transform: translateY(-40px) scale(1) rotate(0deg); }
 }
-	 @keyframes mobileWindmillShake {
-  0%   { transform: translateY(-20px) rotate(0deg); }
-  15%  { transform: translateY(-20px) rotate(15deg); }
-  30%  { transform: translateY(-20px) rotate(-15deg); }
-  45%  { transform: translateY(-20px) rotate(10deg); }
-  60%  { transform: translateY(-20px) rotate(-10deg); }
-  75%  { transform: translateY(-20px) rotate(5deg); }
-  90%  { transform: translateY(-20px) rotate(-5deg); }
-  100% { transform: translateY(-20px) rotate(0deg); }
-}
-
-@media (max-width: 480px) {
-  /* Appliquer cette animation à l'élément concerné, par exemple avec la classe .windmill-shake-mobile */
-  .windmill-shake-mobile {
-    animation: mobileWindmillShake 0.8s ease-in-out forwards !important;
-    transform-origin: center;
+	 @media (max-width: 480px) {
+  #result-header:not(.victory-animation) {
+    animation: none !important;
+    transform: translateY(-50px) !important;
+    margin-top: -50px !important;
   }
 }
   </style>
