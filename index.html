@@ -54,24 +54,24 @@
       100% { transform: rotate(0deg); }
     }
     .windmill-shake {
-      animation: windmillShake 0.8s ease-in-out forwards !important;
+      animation: windmillShake 0.8s ease-in-out infinite !important;
       transform-origin: center;
     }
     
-    /* Animation mobile pour remonter tryagain.png */
+    /* Animation mobile : translation constante en haut et oscillation infinie */
     @media (max-width: 480px) {
       @keyframes windmillShakeMobile {
-        0% { transform: translateY(-60px) rotate(0deg); }
-        15% { transform: translateY(-60px) rotate(15deg); }
-        30% { transform: translateY(-60px) rotate(-15deg); }
-        45% { transform: translateY(-60px) rotate(10deg); }
-        60% { transform: translateY(-60px) rotate(-10deg); }
-        75% { transform: translateY(-60px) rotate(5deg); }
-        90% { transform: translateY(-60px) rotate(-5deg); }
-        100% { transform: translateY(-60px) rotate(0deg); }
+        0%   { transform: translateY(-50px) rotate(0deg); }
+        15%  { transform: translateY(-50px) rotate(15deg); }
+        30%  { transform: translateY(-50px) rotate(-15deg); }
+        45%  { transform: translateY(-50px) rotate(10deg); }
+        60%  { transform: translateY(-50px) rotate(-10deg); }
+        75%  { transform: translateY(-50px) rotate(5deg); }
+        90%  { transform: translateY(-50px) rotate(-5deg); }
+        100% { transform: translateY(-50px) rotate(0deg); }
       }
       .windmill-shake-mobile {
-        animation: windmillShakeMobile 0.8s ease-in-out forwards;
+        animation: windmillShakeMobile 0.8s ease-in-out infinite;
         transform-origin: center;
       }
     }
@@ -452,53 +452,6 @@
         display: block;
         margin: 0 auto 0px;		
       }
-      @keyframes windmillShake {
-        0% { transform: rotate(0deg); }
-        15% { transform: rotate(15deg); }
-        30% { transform: rotate(-15deg); }
-        45% { transform: rotate(10deg); }
-        60% { transform: rotate(-10deg); }
-        75% { transform: rotate(5deg); }
-        90% { transform: rotate(-5deg); }
-        100% { transform: rotate(0deg); }
-      }
-      .windmill-shake {
-        animation: windmillShake 0.8s ease-in-out forwards;
-        transform-origin: center;
-      }
-      .raised {
-        transform: translateY(-20px);
-        margin-bottom: -10px !important;
-      }
-      @keyframes victoryAnimation {
-        0% { transform: scale(1) rotate(0deg); }
-        20% { transform: scale(1.1) rotate(3deg); }
-        40% { transform: scale(1) rotate(-3deg); }
-        60% { transform: scale(1.1) rotate(3deg); }
-        80% { transform: scale(1) rotate(-3deg); }
-        90% { transform: scale(1) rotate(0deg); }
-        100% { transform: scale(1) rotate(0deg); }
-      }
-      .victory-animation {
-        animation: victoryAnimation 2s ease-in-out infinite;
-        transform-origin: center;
-      }
-      @media (max-width: 480px) {
-        .pikachu {
-          display: block;
-          margin: 10px auto;
-          transform: translateY(-10px)!important;
-          width: 270px !important;
-          height: 192px !important;
-        }
-      }
-      @media (max-width: 480px) {
-        .again {
-          width: 85%;
-          margin: 0 auto;
-          transform: translateX(0px);
-        }
-      }
       @media (max-width: 480px) {      
         #result-header {
           display: block;
@@ -645,7 +598,7 @@
   <!-- Page de résultats finale -->
   <div class="container" id="result-page">
     <img id="result-header" src="images/tryagain.png" alt="encore" class="again">
-    <img id="final-image" src="images/lose2.gif" alt="Résultat" style="display:block; margin: -15px auto 20px;">
+    <img id="final-image" src="images/lose1.gif" alt="Résultat" style="display:block; margin: -15px auto 20px;">
     <p id="final-score">Score : 0 sur 3</p>
     <button id="restart-btn" style="text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 3px 3px 5px black;">RECOMMENCER</button>
   </div>
@@ -829,58 +782,17 @@
         resultPage.style.background = "url('images/wall.png') no-repeat center center";
         resultHeader.src = "images/youwin.png";
         resultHeader.classList.add("victory-animation");
-        
-        if (window.innerWidth <= 480) {
-          resultHeader.style.transform = "translateY(-30px)";
-          resultHeader.style.marginTop = "0";
-        } else {
-          resultHeader.style.transform = "translateX(0)";
-          resultHeader.style.marginTop = "10px";
-        }
-        
-        finalScoreEl.style.color = "#00ff1a";
-        finalImage.classList.add("raised");
-        finalImage.style.width = (window.innerWidth <= 480) ? "150px" : "190px";
-        
-        // Overlay GIF de victoire (si nécessaire)
-        if (!document.getElementById("confet-overlay")) {
-          let overlay = document.createElement("img");
-          overlay.id = "confet-overlay";
-          overlay.src = "images/confet.gif"; 
-          overlay.alt = "Overlay de victoire";
-          overlay.style.position = "absolute";
-          overlay.style.top = "0";
-          overlay.style.left = "0";
-          overlay.style.width = "100%";
-          overlay.style.height = "100%";
-          overlay.style.objectFit = "cover";
-          overlay.style.zIndex = "5";
-          resultPage.appendChild(overlay);
-        }
       } else {
         restartBtn.style.animation = "borderGlow2 2s ease-in-out infinite";
         resultPage.style.background = "url('images/wall2.png') no-repeat center center";
         resultHeader.src = "images/tryagain.png";
-        // Application de l'animation adaptée selon la taille d'écran
+        // Sur mobile, appliquer l'animation mobile qui garde le translateY constant
         if (window.innerWidth <= 480) {
           resultHeader.classList.remove("windmill-shake");
           resultHeader.classList.add("windmill-shake-mobile");
         } else {
           resultHeader.classList.add("windmill-shake");
         }
-        
-        resultHeader.style.transform = "translateY(-20px)";
-        resultHeader.style.marginTop = "-30px";
-        finalScoreEl.style.color = "red";
-        finalImage.classList.remove("raised");
-        finalImage.style.width = "190px";
-        finalImage.style.transform = "";
-        
-        setInterval(() => {
-          resultHeader.classList.remove("windmill-shake");
-          void resultHeader.offsetWidth;
-          resultHeader.classList.add("windmill-shake");
-        }, 2800);
       }
       resultPage.style.backgroundSize = "cover";
       resultPage.style.backgroundPosition = "center";
