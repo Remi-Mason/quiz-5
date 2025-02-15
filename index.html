@@ -726,7 +726,7 @@
     });
     
     // Affichage de la page finale
-  function showResultPage() {
+function showResultPage() {
   quizContainer.style.display = "none";
   resultPage.style.display = "block";
   const resultHeader = document.getElementById("result-header");
@@ -750,12 +750,12 @@
     finalImage.classList.add("raised");
     finalImage.style.width = (window.innerWidth <= 480) ? "150px" : "190px";
 
-    // Only on mobile, reduce the gap and move perfect.gif up a bit
+    // On mobile only: reduce space between youwin.png and perfect.gif,
+    // and move perfect.gif (finalImage) slightly upward.
     if (window.innerWidth <= 480) {
-      finalImage.style.marginTop = "-25px";    // Move perfect.gif up
-      finalImage.style.marginBottom = "10px";    // Reduce gap below perfect.gif
+      finalImage.style.marginTop = "-25px";    // move perfect.gif up
+      finalImage.style.marginBottom = "10px";    // reduce the gap below perfect.gif
     } else {
-      // Reset on desktop if necessary
       finalImage.style.marginTop = "";
       finalImage.style.marginBottom = "";
     }
@@ -823,7 +823,6 @@
     document.getElementById("imperfect-sound").play();
   }
 }
-    
     restartBtn.addEventListener("click", () => { window.location.reload(); });
     document.addEventListener("DOMContentLoaded", function() {
       var decorImage = document.querySelector('.pikachu');
