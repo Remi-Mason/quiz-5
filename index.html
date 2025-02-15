@@ -726,72 +726,89 @@
     });
     
     // Affichage de la page finale
-    function showResultPage() {
-      quizContainer.style.display = "none";
-      resultPage.style.display = "block";
-      const resultHeader = document.getElementById("result-header");
-      if (score === quizData.length) {
-        restartBtn.style.animation = "borderGlowGreen 2s ease-in-out infinite";
-        resultPage.style.background = "url('images/wall.png') no-repeat center center";
-        resultHeader.src = "images/youwin.png";
-        resultHeader.classList.add("victory-animation");
-        if (window.innerWidth <= 480) {
-          resultHeader.style.transform = "translateY(-30px)";
-          resultHeader.style.marginTop = "0";
-        } else {
-          resultHeader.style.transform = "translateX(0)";
-          resultHeader.style.marginTop = "10px";
-        }
-        finalScoreEl.style.color = "#00ff1a";
-        finalImage.classList.add("raised");
-        finalImage.style.width = (window.innerWidth <= 480) ? "150px" : "190px";
-        if (!document.getElementById("confet-overlay")) {
-          let overlay = document.createElement("img");
-          overlay.id = "confet-overlay";
-          overlay.src = "images/confet.gif";
-          overlay.alt = "Overlay de victoire";
-          overlay.style.position = "absolute";
-          overlay.style.top = "0";
-          overlay.style.left = "0";
-          overlay.style.width = "100%";
-          overlay.style.height = "100%";
-          overlay.style.objectFit = "cover";
-          overlay.style.zIndex = "5";
-          resultPage.appendChild(overlay);
-        }
-      } else {
-        restartBtn.style.animation = "borderGlow2 2s ease-in-out infinite";
-        resultPage.style.background = "url('images/wall2.png') no-repeat center center";
-        resultHeader.src = "images/tryagain.png";
-        resultHeader.style.transform = "translateY(-20px)";
-        resultHeader.style.marginTop = "-40px";
-        finalScoreEl.style.color = "red";
-        resultHeader.classList.add("windmill-shake");
-        finalImage.classList.remove("raised");
-        finalImage.style.width = "190px";
-        finalImage.style.transform = "";
-        setInterval(() => {
-          resultHeader.classList.remove("windmill-shake");
-          void resultHeader.offsetWidth;
-          resultHeader.classList.add("windmill-shake");
-        }, 2800);
-      }
-      resultPage.style.backgroundSize = "cover";
-      resultPage.style.backgroundPosition = "center";
-      finalScoreEl.textContent = `Score : ${score} sur ${quizData.length}`;
-      if (score === quizData.length) {
-        finalImage.src = "images/perfect.gif";
-      } else {
-        finalImage.src = "images/lose2.gif";
-      }
-      if (score === quizData.length) {
-        document.getElementById("perfect-sound").currentTime = 0;
-        document.getElementById("perfect-sound").play();
-      } else {
-        document.getElementById("imperfect-sound").currentTime = 0;
-        document.getElementById("imperfect-sound").play();
-      }
+   function showResultPage() {
+  quizContainer.style.display = "none";
+  resultPage.style.display = "block";
+  const resultHeader = document.getElementById("result-header");
+
+  if (score === quizData.length) {
+    restartBtn.style.animation = "borderGlowGreen 2s ease-in-out infinite";
+    resultPage.style.background = "url('images/wall.png') no-repeat center center";
+    resultHeader.src = "images/youwin.png";
+    resultHeader.classList.add("victory-animation");
+
+    // Victory image positioning (mobile vs desktop)
+    if (window.innerWidth <= 480) {
+      resultHeader.style.transform = "translateY(-30px)";
+      resultHeader.style.marginTop = "0";
+    } else {
+      resultHeader.style.transform = "translateX(0)";
+      resultHeader.style.marginTop = "10px";
     }
+
+    finalScoreEl.style.color = "#00ff1a";
+    finalImage.classList.add("raised");
+    finalImage.style.width = (window.innerWidth <= 480) ? "150px" : "190px";
+
+    // Add overlay GIF for victory if not already present
+    if (!document.getElementById("confet-overlay")) {
+      let overlay = document.createElement("img");
+      overlay.id = "confet-overlay";
+      overlay.src = "images/confet.gif";
+      overlay.alt = "Overlay de victoire";
+      overlay.style.position = "absolute";
+      overlay.style.top = "0";
+      overlay.style.left = "0";
+      overlay.style.width = "100%";
+      overlay.style.height = "100%";
+      overlay.style.objectFit = "cover";
+      overlay.style.zIndex = "5";
+      resultPage.appendChild(overlay);
+    }
+  } else {
+    restartBtn.style.animation = "borderGlow2 2s ease-in-out infinite";
+    resultPage.style.background = "url('images/wall2.png') no-repeat center center";
+    resultHeader.src = "images/tryagain.png";
+    
+    // Adjust positioning only on mobile
+    if (window.innerWidth <= 480) {
+      resultHeader.style.transform = "translateY(-40px)";
+      resultHeader.style.marginTop = "-40px";
+    } else {
+      resultHeader.style.transform = "translateY(-20px)";
+      resultHeader.style.marginTop = "-30px";
+    }
+    
+    finalScoreEl.style.color = "red";
+    resultHeader.classList.add("windmill-shake");
+    finalImage.classList.remove("raised");
+    finalImage.style.width = "190px";
+    finalImage.style.transform = "";
+    setInterval(() => {
+      resultHeader.classList.remove("windmill-shake");
+      void resultHeader.offsetWidth;
+      resultHeader.classList.add("windmill-shake");
+    }, 2800);
+  }
+  
+  resultPage.style.backgroundSize = "cover";
+  resultPage.style.backgroundPosition = "center";
+  finalScoreEl.textContent = `Score : ${score} sur ${quizData.length}`;
+  
+  if (score === quizData.length) {
+    finalImage.src = "images/perfect.gif";
+  } else {
+    finalImage.src = "images/lose2.gif";
+  }
+  
+  if (score === quizData.length) {
+    document.getElementById("perfect-sound").currentTime = 0;
+    document.getElementById("perfect-sound").play();
+  } else {
+    document.getElementById("imperfect-sound").currentTime = 0;
+    document.getElementById("imperfect-sound").play();
+  }
+}
     
     restartBtn.addEventListener("click", () => { window.location.reload(); });
     document.addEventListener("DOMContentLoaded", function() {
