@@ -802,22 +802,22 @@ background: linear-gradient(to top,
       quizContainer.style.display = "none";
       resultPage.style.display = "block";
       const resultHeader = document.getElementById("result-header");
-     if (score === quizData.length) {
+if (score === quizData.length) {
   restartBtn.style.animation = "borderGlowGreen 2s ease-in-out infinite";
   resultPage.style.background = "url('images/wall.png') no-repeat center center";
   resultHeader.src = "images/youwin.png";
   
+  resultHeader.classList.add("victory-animation");
+  
+  // Appliquer le décalage spécifique sur mobile après avoir ajouté l'animation
   if (window.innerWidth <= 480) {
-    // Sur mobile, remonter le youwin
     resultHeader.style.transform = "translateY(-30px)";
     resultHeader.style.marginTop = "0";
   } else {
-    // Sur PC, garder les réglages d'origine
     resultHeader.style.transform = "translateX(0)";
     resultHeader.style.marginTop = "10px";
   }
   
-  resultHeader.classList.add("victory-animation");
   finalScoreEl.style.color = "#00ff1a";
   finalImage.classList.add("raised");
   finalImage.style.width = (window.innerWidth <= 480) ? "150px" : "190px";
