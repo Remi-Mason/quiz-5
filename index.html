@@ -518,6 +518,13 @@
     margin-bottom: 30px!important;
   }
 }
+	  @media (max-width: 480px) {
+  .mobile-youwin {
+    /* On n'utilise ici que margin-top pour déplacer l'image,
+       ce qui n'interfère pas avec l'animation appliquée sur transform */
+    margin-top: 20px !important;
+  }
+}
   </style>
 </head>
 <body>
@@ -746,8 +753,7 @@ function showResultPage() {
 
     // Positioning for youwin.png (header)
     if (window.innerWidth <= 480) {
-      resultHeader.style.transform = "translateY(-60px)";
-      resultHeader.style.marginTop = "0px";
+     resultHeader.classList.add("mobile-youwin");
     } else {
       resultHeader.style.transform = "translateX(0)";
       resultHeader.style.marginTop = "10px";
