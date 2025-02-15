@@ -540,7 +540,7 @@ background: linear-gradient(to top,
       @media (max-width: 480px) {
         .floating-title {
           margin-top: -10px; /* Ajustez selon le rendu souhaité */
-		  margin-bottom: 25px;
+		  margin-bottom: 25px !important;
 
         }
       }
@@ -558,15 +558,15 @@ background: linear-gradient(to top,
 }
  @media (max-width: 480px) {
 @keyframes levitateLeftX {
-  0%   { transform: translate(30px, -20px); }
-  50%  { transform: translate(30px, 0px); }
-  100% { transform: translate(30px, -20px); }
+  0%   { transform: translate(30px, -30px); }
+  50%  { transform: translate(30px, 10px); }
+  100% { transform: translate(30px, -30px); }
 }
  @media (max-width: 480px) {
 @keyframes levitateRightX {
-  0%   { transform: translate(-30px, -20px); }
-  50%  { transform: translate(-30px, 0px); }
-  100% { transform: translate(-30px, -20px); }
+  0%   { transform: translate(-30px, -30px); }
+  50%  { transform: translate(-30px, 10px); }
+  100% { transform: translate(-30px, -30px); }
 }
 }
 .centipod {
