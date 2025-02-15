@@ -898,7 +898,13 @@ if (score === quizData.length) {
     }
     
     restartBtn.addEventListener("click", () => { window.location.reload(); });
-	  
+document.addEventListener("DOMContentLoaded", function() {
+  var decorImage = document.querySelector('.pikachu');
+  if (decorImage) {
+    decorImage.src = "images/decor1.gif?t=" + new Date().getTime(); // Toujours decor1.gif avec cache busting
+    decorImage.style.visibility = 'visible';
+  }
+});	  
   </script>
 </body>
 </html>
