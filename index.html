@@ -29,45 +29,63 @@
   
   <style>
     /* Animations */
-	   @keyframes victoryAnimation {
-        0% { transform: scale(1) rotate(0deg); }
-        20% { transform: scale(1.1) rotate(3deg); }
-        40% { transform: scale(1) rotate(-3deg); }
-        60% { transform: scale(1.1) rotate(3deg); }
-        80% { transform: scale(1) rotate(-3deg); }
-        90% { transform: scale(1) rotate(0deg); }
-        100% { transform: scale(1) rotate(0deg); }
+    @keyframes victoryAnimation {
+      0% { transform: scale(1) rotate(0deg); }
+      20% { transform: scale(1.1) rotate(3deg); }
+      40% { transform: scale(1) rotate(-3deg); }
+      60% { transform: scale(1.1) rotate(3deg); }
+      80% { transform: scale(1) rotate(-3deg); }
+      90% { transform: scale(1) rotate(0deg); }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+    .victory-animation {
+      animation: victoryAnimation 2s ease-in-out infinite;
+      transform-origin: center;
+    }
+    
+    @keyframes windmillShake {
+      0% { transform: rotate(0deg); }
+      15% { transform: rotate(15deg); }
+      30% { transform: rotate(-15deg); }
+      45% { transform: rotate(10deg); }
+      60% { transform: rotate(-10deg); }
+      75% { transform: rotate(5deg); }
+      90% { transform: rotate(-5deg); }
+      100% { transform: rotate(0deg); }
+    }
+    .windmill-shake {
+      animation: windmillShake 0.8s ease-in-out forwards !important;
+      transform-origin: center;
+    }
+    
+    /* Animation mobile pour remonter tryagain.png */
+    @media (max-width: 480px) {
+      @keyframes windmillShakeMobile {
+        0% { transform: translateY(-30px) rotate(0deg); }
+        15% { transform: translateY(-30px) rotate(15deg); }
+        30% { transform: translateY(-30px) rotate(-15deg); }
+        45% { transform: translateY(-30px) rotate(10deg); }
+        60% { transform: translateY(-30px) rotate(-10deg); }
+        75% { transform: translateY(-30px) rotate(5deg); }
+        90% { transform: translateY(-30px) rotate(-5deg); }
+        100% { transform: translateY(-30px) rotate(0deg); }
       }
-      .victory-animation {
-        animation: victoryAnimation 2s ease-in-out infinite;
+      .windmill-shake-mobile {
+        animation: windmillShakeMobile 0.8s ease-in-out forwards;
         transform-origin: center;
       }
-	  @keyframes windmillShake {
-  0% { transform: rotate(0deg); }
-  15% { transform: rotate(15deg); }
-  30% { transform: rotate(-15deg); }
-  45% { transform: rotate(10deg); }
-  60% { transform: rotate(-10deg); }
-  75% { transform: rotate(5deg); }
-  90% { transform: rotate(-5deg); }
-  100% { transform: rotate(0deg); }
-}
-
-.windmill-shake {
-  animation: windmillShake 0.8s ease-in-out forwards !important;
-  transform-origin: center;
-
-}
-	 @keyframes levitateLeft {
-        0%   { transform: translate(40px, -10px); }
-        50%  { transform: translate(40px, -20px); } /* monte de 10px */
-        100% { transform: translate(40px, -10px); }
-      }
-      @keyframes levitateRight {
-        0%   { transform: translate(-40px, -10px); }
-        50%  { transform: translate(-40px, -20px); } /* monte de 10px */
-        100% { transform: translate(-40px, -10px); }
-      }
+    }
+    
+    @keyframes levitateLeft {
+      0%   { transform: translate(40px, -10px); }
+      50%  { transform: translate(40px, -20px); }
+      100% { transform: translate(40px, -10px); }
+    }
+    @keyframes levitateRight {
+      0%   { transform: translate(-40px, -10px); }
+      50%  { transform: translate(-40px, -20px); }
+      100% { transform: translate(-40px, -10px); }
+    }
     @keyframes shake {
       0% { transform: translate(0, 0); }
       10% { transform: translate(-10px, -10px); }
@@ -113,7 +131,6 @@
       50%  { transform: translateY(-10px); }
       100% { transform: translateY(0); }
     }
-    /* Appliquer l'animation au titre */
     .floating-title {
       position: relative;
       z-index: 3;
@@ -123,33 +140,27 @@
       max-width: 90%;
       width: auto;
     }
-    /* Pour centrer l'image décorative */
-
-.pikachu {
-  display: block;
-  margin: 20px auto;
-  transform: translateY(-15px)!important;
-  width: 270px !important;
-  height: 192px !important;
-  border: 3px solid white;
-
-
-}
-    /* Centrage général des images de résultat */
+    .pikachu {
+      display: block;
+      margin: 20px auto;
+      transform: translateY(-15px)!important;
+      width: 270px !important;
+      height: 192px !important;
+      border: 3px solid white;
+    }
     #result-header {
       margin-bottom: 40px;
     }
-    /* Styles généraux */
     html, body {
       height: 100%;
       margin: 0;
       padding: 0;
-background: linear-gradient(to top, 
-    #1a001f 0%, 
-    #330033 25%, 
-    #4B0082 50%, 
-    #660099 75%, 
-    #8000b3 100%);
+      background: linear-gradient(to top, 
+          #1a001f 0%, 
+          #330033 25%, 
+          #4B0082 50%, 
+          #660099 75%, 
+          #8000b3 100%);
       background-size: 100% 100%;
       animation: quizBGAnimation 10s ease infinite;
     }
@@ -167,7 +178,7 @@ background: linear-gradient(to top,
       border-radius: 15px;
       text-align: center;
       padding: 30px;
-	  padding-top: 50px;
+      padding-top: 50px;
       margin: 20px auto;
       transition: transform 0.3s ease;
       position: relative;
@@ -211,7 +222,7 @@ background: linear-gradient(to top,
     /* Zone du quiz */
     #quiz-container {
       background: url('images/wall2.png') no-repeat center center;
-	  background-size: cover;
+      background-size: cover;
       padding: 30px;
       border-radius: 15px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.1);
@@ -319,25 +330,23 @@ background: linear-gradient(to top,
       justify-content: center;
     }
     .correct-decoration { width: 60px; }
-    /* Pour l'image de bonne réponse, largeur de 80px adaptée aux GIFs */
     .correct-container .result-image.correct {
       animation: popAnimation 0.5s ease-out;
       width: 80px;
       margin-bottom: 10px;
-	  margin-top: -10px;
+      margin-top: -10px;
       z-index: 1;
     }
     .result-image.incorrect {
       width: 80px;
       animation: shake 0.5s ease-in-out;
-	  margin-top: -30px;
+      margin-top: -30px;
     }
     /* Page finale */
     #result-page {  
- background: url('images/wall.png') no-repeat center center;
+      background: url('images/wall.png') no-repeat center center;
       display: none; 
       position: relative;
-
     }
     #result-page h2 { font-size: 24px; margin-bottom: 20px; }
     #final-score {
@@ -369,63 +378,59 @@ background: linear-gradient(to top,
       position: relative;
       overflow: visible;
       animation: borderGlow2 2s ease-in-out infinite;
-       z-index: 6; 
+      z-index: 6; 
     }
     #restart-btn:active { transform: scale(0.95); }
-	 .incorrect-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-		margin-bottom: -30px;
-      }
-
- .decor-rightX {
-        width: 60px;
-        transform: translate(-30px, 3px) scale(3);
-        z-index: 0;
-        padding: 12px 0px;
-		 animation: levitateRightX 1s ease-in-out infinite;
-      }
-      .decor-leftX {
-        width: 60px;
-        transform: translate(30px, 3px) scale(1.5);
-        z-index: 0;
-        padding: 12px 0px;
-		 animation: levitateLeftX 1s ease-in-out infinite;
-      }
-	  .decor-right {
-  width: 60px;
-  transform: translate(-40px, 0px);
-  z-index: 0;
-  padding: 12px 0px;
-  animation: levitateRight 1s ease-in-out infinite;
-}
-.decor-left {
-  width: 60px;
-  transform: translate(40px, 0px);
-  z-index: 0;
-  padding: 12px 0px;
-  animation: levitateLeft 1s ease-in-out infinite;
-
-}
-@keyframes levitateLeftX {
-  0%   { transform: translate(40px, -20px); }
-  50%  { transform: translate(40px, -30px); }
-  100% { transform: translate(40px, -20px); }
-}
-@keyframes levitateRightX {
-  0%   { transform: translate(-40px, -20px); }
-  50%  { transform: translate(-40px, -30px); }
-  100% { transform: translate(-40px, -20px); }
-}
-    /* Media Query pour mobile */
+    .incorrect-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: -30px;
+    }
+    .decor-rightX {
+      width: 60px;
+      transform: translate(-30px, 3px) scale(3);
+      z-index: 0;
+      padding: 12px 0px;
+      animation: levitateRightX 1s ease-in-out infinite;
+    }
+    .decor-leftX {
+      width: 60px;
+      transform: translate(30px, 3px) scale(1.5);
+      z-index: 0;
+      padding: 12px 0px;
+      animation: levitateLeftX 1s ease-in-out infinite;
+    }
+    .decor-right {
+      width: 60px;
+      transform: translate(-40px, 0px);
+      z-index: 0;
+      padding: 12px 0px;
+      animation: levitateRight 1s ease-in-out infinite;
+    }
+    .decor-left {
+      width: 60px;
+      transform: translate(40px, 0px);
+      z-index: 0;
+      padding: 12px 0px;
+      animation: levitateLeft 1s ease-in-out infinite;
+    }
+    @keyframes levitateLeftX {
+      0%   { transform: translate(40px, -20px); }
+      50%  { transform: translate(40px, -30px); }
+      100% { transform: translate(40px, -20px); }
+    }
+    @keyframes levitateRightX {
+      0%   { transform: translate(-40px, -20px); }
+      50%  { transform: translate(-40px, -30px); }
+      100% { transform: translate(-40px, -20px); }
+    }
     @media (max-width: 480px) {
       .container {       
         width: 360px;
         max-width: 90%;
         padding: 30px;
       }
-      /* Vous pouvez retirer ou adapter cette règle si elle n'est plus nécessaire */
       #overlay {
         top: 85px !important;
         left: 50% !important;
@@ -480,11 +485,11 @@ background: linear-gradient(to top,
       }
       @media (max-width: 480px) {
         .pikachu {
-            display: block;
-  margin: 10px auto;
-  transform: translateY(-10px)!important;
-  width: 270px !important;
-  height: 192px !important;
+          display: block;
+          margin: 10px auto;
+          transform: translateY(-10px)!important;
+          width: 270px !important;
+          height: 192px !important;
         }
       }
       @media (max-width: 480px) {
@@ -494,12 +499,12 @@ background: linear-gradient(to top,
           transform: translateX(0px);
         }
       }
-@media (max-width: 480px) {      
-  #result-header {
-    display: block;
-    margin: -20px auto 20px; /* Remonter de 20px */
-    width: 85%;
-  }
+      @media (max-width: 480px) {      
+        #result-header {
+          display: block;
+          margin: -20px auto 20px;
+          width: 85%;
+        }
       }
       @media (max-width: 480px) {      
         .decor-right {
@@ -535,76 +540,74 @@ background: linear-gradient(to top,
           padding: 12px 0px;
         }
       }
-
       @media (max-width: 480px) {
         .floating-title {
-          margin-top: -10px; /* Ajustez selon le rendu souhaité */
-		  margin-bottom: 15px;
-
+          margin-top: -10px;
+          margin-bottom: 15px;
         }
       }
- @media (max-width: 480px) {
- @keyframes levitateLeft {
-        0%   { transform: translate(20px, -5px); }
-        50%  { transform: translate(20px, -15px); } /* monte de 10px */
-        100% { transform: translate(20px, -5px); }
+      @media (max-width: 480px) {
+        @keyframes levitateLeft {
+          0%   { transform: translate(20px, -5px); }
+          50%  { transform: translate(20px, -15px); }
+          100% { transform: translate(20px, -5px); }
+        }
+        @keyframes levitateRight {
+          0%   { transform: translate(-20px, -5px); }
+          50%  { transform: translate(-20px, -15px); }
+          100% { transform: translate(-20px, -5px); }
+        }
       }
-      @keyframes levitateRight {
-        0%   { transform: translate(-20px, -5px); }
-        50%  { transform: translate(-20px, -15px); } /* monte de 10px */
-        100% { transform: translate(-20px, -5px); }
+      @media (max-width: 480px) {
+        @keyframes levitateLeftX {
+          0%   { transform: translate(30px, -30px); }
+          50%  { transform: translate(30px, -20px); }
+          100% { transform: translate(30px, -30px); }
+        }
       }
-}
- @media (max-width: 480px) {
-@keyframes levitateLeftX {
-  0%   { transform: translate(30px, -30px); }
-  50%  { transform: translate(30px, -20px); }
-  100% { transform: translate(30px, -30px); }
-}
- @media (max-width: 480px) {
-@keyframes levitateRightX {
-  0%   { transform: translate(-30px, -30px); }
-  50%  { transform: translate(-30px, -20px); }
-  100% { transform: translate(-30px, -30px); }
-}
-}
-.centipod {
-  display: block;
-  margin: 0 auto;
-}
-@media (max-width: 480px) {
-  #question-text { font-size: 20px; }
-}
-	 @media (max-width: 480px) {
-  #final-score {
-    font-size: 28px !important; /* Increase the font size as needed */
-  }
-}
-	 @media (max-width: 480px) {
-  #mute-btn {
-    margin-top: 10px!important; /* Ajustez la valeur selon vos besoins */
-  }
-}
-	 @media (max-width: 480px) {
-  #result-page {
-    padding-top: 70px; /* Ajustez la valeur selon vos besoins */
-  }
-}
-	 @media (max-width: 480px) {
-  .victory-animation {
-    /* Exemple : redéfinir l'animation avec un décalage sur mobile */
-    animation: mobileVictoryAnimation 2s ease-in-out infinite !important;
-  }
-}
-
-@keyframes mobileVictoryAnimation {
-  0%   { transform: translateY(-40px) scale(1) rotate(0deg); }
-  20%  { transform: translateY(-40px) scale(1.1) rotate(3deg); }
-  40%  { transform: translateY(-40px) scale(1) rotate(-3deg); }
-  60%  { transform: translateY(-40px) scale(1.1) rotate(3deg); }
-  80%  { transform: translateY(-40px) scale(1) rotate(-3deg); }
-  100% { transform: translateY(-40px) scale(1) rotate(0deg); }
-}
+      @media (max-width: 480px) {
+        @keyframes levitateRightX {
+          0%   { transform: translate(-30px, -30px); }
+          50%  { transform: translate(-30px, -20px); }
+          100% { transform: translate(-30px, -30px); }
+        }
+      }
+    }
+    .centipod {
+      display: block;
+      margin: 0 auto;
+    }
+    @media (max-width: 480px) {
+      #question-text { font-size: 20px; }
+    }
+    @media (max-width: 480px) {
+      #final-score {
+        font-size: 28px !important;
+      }
+    }
+    @media (max-width: 480px) {
+      #mute-btn {
+        margin-top: 10px!important;
+      }
+    }
+    @media (max-width: 480px) {
+      #result-page {
+        padding-top: 70px;
+      }
+    }
+    @media (max-width: 480px) {
+      .victory-animation {
+        animation: mobileVictoryAnimation 2s ease-in-out infinite !important;
+      }
+    }
+    @keyframes mobileVictoryAnimation {
+      0%   { transform: translateY(-40px) scale(1) rotate(0deg); }
+      20%  { transform: translateY(-40px) scale(1.1) rotate(3deg); }
+      40%  { transform: translateY(-40px) scale(1) rotate(-3deg); }
+      60%  { transform: translateY(-40px) scale(1.1) rotate(3deg); }
+      80%  { transform: translateY(-40px) scale(1) rotate(-3deg); }
+      100% { transform: translateY(-40px) scale(1) rotate(0deg); }
+    }
   </style>
 </head>
 <body>
@@ -623,9 +626,7 @@ background: linear-gradient(to top,
     <img src="images/titre.png" alt="quiz ssiap1" class="floating-title">
     <!-- Image décorative centrée -->
     <img src="images/decor1.gif" alt="pik" class="pikachu" style="z-index: 3;">
-    <!-- Image GBC en tant qu'image normale (non overlay) -->
-
-    <!-- Bouton mute et bouton start… -->
+    <!-- Bouton mute et bouton start -->
     <img id="mute-btn" src="images/mute-off.gif" alt="Son activé" style="cursor: pointer; width: 30px; height: 25px; margin: -10px auto -2px;">
     <button id="start-btn"><img src="images/start.png" style="margin-bottom: -15px; width: 130px"></button>
   </div>
@@ -650,20 +651,21 @@ background: linear-gradient(to top,
   </div>
   
   <script>
-  document.addEventListener("DOMContentLoaded", function() {
-  var decorImage = document.querySelector('.pikachu');
-  if (decorImage) {
-    decorImage.src = "images/decor1.gif";
-    decorImage.style.width = "235px";
-    setTimeout(function(){
-       decorImage.src = "images/decor2.gif";
-       decorImage.style.width = "235px";
-    }, 18000);
-  }
-});
+    document.addEventListener("DOMContentLoaded", function() {
+      var decorImage = document.querySelector('.pikachu');
+      if (decorImage) {
+        decorImage.src = "images/decor1.gif";
+        decorImage.style.width = "235px";
+        setTimeout(function(){
+          decorImage.src = "images/decor2.gif";
+          decorImage.style.width = "235px";
+        }, 18000);
+      }
+    });
+    
     // Données du quiz
     const quizData = [
-            {
+      {
         question: "Sur quel feu peut-on utiliser un extincteur à eau pulvérisée avec additif (A.F.F.F.) ?",
         options: ["Classe A", "Classe B", "Classe C", "Classe D", "Classe F", "aucune des réponses précédentes"],
         correctAnswers: ["Classe A", "Classe B"]
@@ -711,15 +713,15 @@ background: linear-gradient(to top,
       }
     }
     muteBtn.addEventListener("click", muteToggleHandler);
-	document.addEventListener("DOMContentLoaded", function() {
-  var muteImg = document.getElementById("mute-btn");
-  if (muteImg && muteImg.src.indexOf(".gif") !== -1) {
-    var newMuteImg = muteImg.cloneNode(true);
-    newMuteImg.src = newMuteImg.src.split('?')[0] + '?t=' + new Date().getTime();
-    muteImg.parentNode.replaceChild(newMuteImg, muteImg);
-    newMuteImg.addEventListener("click", muteToggleHandler);
-  }
-});
+    document.addEventListener("DOMContentLoaded", function() {
+      var muteImg = document.getElementById("mute-btn");
+      if (muteImg && muteImg.src.indexOf(".gif") !== -1) {
+        var newMuteImg = muteImg.cloneNode(true);
+        newMuteImg.src = newMuteImg.src.split('?')[0] + '?t=' + new Date().getTime();
+        muteImg.parentNode.replaceChild(newMuteImg, muteImg);
+        newMuteImg.addEventListener("click", muteToggleHandler);
+      }
+    });
     
     // Démarrage du quiz
     startBtn.addEventListener("click", () => {
@@ -743,7 +745,7 @@ background: linear-gradient(to top,
     function showQuestion() {
       resultDiv.innerHTML = "";
       const data = quizData[currentQuestion];
-      questionCounterEl.textContent = ${currentQuestion + 1} / ${quizData.length};
+      questionCounterEl.textContent = `${currentQuestion + 1} / ${quizData.length}`;
       questionTextEl.textContent = data.question;
       optionsDiv.innerHTML = "";
       data.options.forEach((option, index) => {
@@ -753,10 +755,13 @@ background: linear-gradient(to top,
         checkbox.type = "checkbox";
         checkbox.value = option;
         checkbox.name = "option";
-        checkbox.id = option_${index};
-        checkbox.addEventListener("click", () => { checkboxSound.currentTime = 0; checkboxSound.play(); });
+        checkbox.id = `option_${index}`;
+        checkbox.addEventListener("click", () => { 
+          checkboxSound.currentTime = 0; 
+          checkboxSound.play(); 
+        });
         const label = document.createElement("label");
-        label.htmlFor = option_${index};
+        label.htmlFor = `option_${index}`;
         label.textContent = option;
         div.appendChild(checkbox);
         div.appendChild(label);
@@ -772,7 +777,6 @@ background: linear-gradient(to top,
       return sortedA.every((val, index) => val === sortedB[index]);
     }
     
-    const incorrectSound2 = document.getElementById("incorrect-sound2");
     validateBtn.addEventListener("click", () => {
       const data = quizData[currentQuestion];
       const selected = Array.from(document.querySelectorAll('input[name="option"]:checked')).map(el => el.value);
@@ -784,25 +788,23 @@ background: linear-gradient(to top,
         correctSound.currentTime = 0;
         correctSound.play();
         resultDiv.innerHTML = 
-          <div class="correct-container">
+          `<div class="correct-container">
             <img src="images/ryu.gif" alt="Décoration gauche" class="decor-left">
             <img src="images/correct.png" alt="Bonne réponse" class="result-image correct">
             <img src="images/ken.gif" alt="Décoration droite" class="decor-right">
-          </div>
-        ;
+          </div>`;
       } else {
-        const selectedSound = (Math.random() < 0.5) ? incorrectSound : incorrectSound2;
+        const selectedSound = (Math.random() < 0.5) ? incorrectSound : document.getElementById("incorrect-sound2");
         selectedSound.currentTime = 0;
         selectedSound.play();
         resultDiv.innerHTML = 
-          <div class="incorrect-container">
+          `<div class="incorrect-container">
             <img src="images/ryu2.gif" alt="Décoration gauche" class="decor-leftX">
             <img src="images/incorrect.png" alt="Mauvaise réponse" class="result-image incorrect">
             <img src="images/ken2.gif" alt="Décoration droite" class="decor-rightX">
           </div>
           <div class="incorrect-answer-header">Réponse :</div>
-          <div class="incorrect-answer-text">${data.correctAnswers.join(", ")}</div>
-        ;
+          <div class="incorrect-answer-text">${data.correctAnswers.join(", ")}</div>`;
       }
       const delayTime = isCorrect ? 2000 : 3000;
       setTimeout(() => {
@@ -821,33 +823,31 @@ background: linear-gradient(to top,
       quizContainer.style.display = "none";
       resultPage.style.display = "block";
       const resultHeader = document.getElementById("result-header");
-if (score === quizData.length) {
-  restartBtn.style.animation = "borderGlowGreen 2s ease-in-out infinite";
-  resultPage.style.background = "url('images/wall.png') no-repeat center center";
-  resultHeader.src = "images/youwin.png";
-  
-  resultHeader.classList.add("victory-animation");
-  
-  // Appliquer le décalage spécifique sur mobile après avoir ajouté l'animation
-  if (window.innerWidth <= 480) {
-    resultHeader.style.transform = "translateY(-30px)";
-    resultHeader.style.marginTop = "0";
-  } else {
-    resultHeader.style.transform = "translateX(0)";
-    resultHeader.style.marginTop = "10px";
-  }
-  
-  finalScoreEl.style.color = "#00ff1a";
-  finalImage.classList.add("raised");
-  finalImage.style.width = (window.innerWidth <= 480) ? "150px" : "190px";
-	
-        // --- Ajout de l'overlay GIF de victoire ---
+      
+      if (score === quizData.length) {
+        restartBtn.style.animation = "borderGlowGreen 2s ease-in-out infinite";
+        resultPage.style.background = "url('images/wall.png') no-repeat center center";
+        resultHeader.src = "images/youwin.png";
+        resultHeader.classList.add("victory-animation");
+        
+        if (window.innerWidth <= 480) {
+          resultHeader.style.transform = "translateY(-30px)";
+          resultHeader.style.marginTop = "0";
+        } else {
+          resultHeader.style.transform = "translateX(0)";
+          resultHeader.style.marginTop = "10px";
+        }
+        
+        finalScoreEl.style.color = "#00ff1a";
+        finalImage.classList.add("raised");
+        finalImage.style.width = (window.innerWidth <= 480) ? "150px" : "190px";
+        
+        // Overlay GIF de victoire (si nécessaire)
         if (!document.getElementById("confet-overlay")) {
           let overlay = document.createElement("img");
           overlay.id = "confet-overlay";
           overlay.src = "images/confet.gif"; 
           overlay.alt = "Overlay de victoire";
-          // Positionner l'overlay pour qu'il couvre tout le container
           overlay.style.position = "absolute";
           overlay.style.top = "0";
           overlay.style.left = "0";
@@ -861,13 +861,21 @@ if (score === quizData.length) {
         restartBtn.style.animation = "borderGlow2 2s ease-in-out infinite";
         resultPage.style.background = "url('images/wall2.png') no-repeat center center";
         resultHeader.src = "images/tryagain.png";
+        // Application de l'animation adaptée selon la taille d'écran
+        if (window.innerWidth <= 480) {
+          resultHeader.classList.remove("windmill-shake");
+          resultHeader.classList.add("windmill-shake-mobile");
+        } else {
+          resultHeader.classList.add("windmill-shake");
+        }
+        
         resultHeader.style.transform = "translateY(-20px)";
         resultHeader.style.marginTop = "-30px";
         finalScoreEl.style.color = "red";
-        resultHeader.classList.add("windmill-shake");
         finalImage.classList.remove("raised");
         finalImage.style.width = "190px";
         finalImage.style.transform = "";
+        
         setInterval(() => {
           resultHeader.classList.remove("windmill-shake");
           void resultHeader.offsetWidth;
@@ -876,17 +884,8 @@ if (score === quizData.length) {
       }
       resultPage.style.backgroundSize = "cover";
       resultPage.style.backgroundPosition = "center";
-      finalScoreEl.textContent = Score : ${score} sur ${quizData.length};
-  if (score === quizData.length) {
-  finalImage.src = "images/perfect.gif";
-} else {
-  finalImage.src = "images/lose1.gif";
-  finalImage.classList.add("lose1-scale");
-  setTimeout(() => {
-    finalImage.src = "images/lose2.gif";
-    finalImage.classList.remove("lose1-scale");
-  }, 1000);
-}
+      finalScoreEl.textContent = `Score : ${score} sur ${quizData.length}`;
+      
       if (score === quizData.length) {
         document.getElementById("perfect-sound").currentTime = 0;
         document.getElementById("perfect-sound").play();
@@ -897,13 +896,13 @@ if (score === quizData.length) {
     }
     
     restartBtn.addEventListener("click", () => { window.location.reload(); });
-document.addEventListener("DOMContentLoaded", function() {
-  var decorImage = document.querySelector('.pikachu');
-  if (decorImage) {
-    decorImage.src = "images/decor1.gif?t=" + new Date().getTime(); // Toujours decor1.gif avec cache busting
-    decorImage.style.visibility = 'visible';
-  }
-});	  
+    document.addEventListener("DOMContentLoaded", function() {
+      var decorImage = document.querySelector('.pikachu');
+      if (decorImage) {
+        decorImage.src = "images/decor1.gif?t=" + new Date().getTime();
+        decorImage.style.visibility = 'visible';
+      }
+    });
   </script>
 </body>
 </html>
