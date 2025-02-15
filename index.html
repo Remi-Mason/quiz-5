@@ -865,28 +865,37 @@ if (score === quizData.length) {
         }
       } else {
         restartBtn.style.animation = "borderGlow2 2s ease-in-out infinite";
-        resultPage.style.background = "url('images/wall2.png') no-repeat center center";
-        resultHeader.src = "images/tryagain.png";
-        resultHeader.style.transform = "translateY(-20px)";
-        resultHeader.style.marginTop = "-30px";
-        finalScoreEl.style.color = "red";
-        resultHeader.classList.add("windmill-shake");
-        finalImage.classList.remove("raised");
-        finalImage.style.width = "190px";
-        finalImage.style.transform = "";
-        setInterval(() => {
-          resultHeader.classList.remove("windmill-shake");
-          void resultHeader.offsetWidth;
-          resultHeader.classList.add("windmill-shake");
-        }, 2800);
-      }
+  resultPage.style.background = "url('images/wall2.png') no-repeat center center";
+  resultHeader.src = "images/tryagain.png";
+  
+  // Only apply inline transform/margin if not mobile
+  if (window.innerWidth > 480) {
+    resultHeader.style.transform = "translateY(-20px)";
+    resultHeader.style.marginTop = "-30px";
+  } else {
+    // For mobile, remove inline styles so that the media query can take effect
+    resultHeader.style.transform = "";
+    resultHeader.style.marginTop = "";
+  }
+  
+  finalScoreEl.style.color = "red";
+  resultHeader.classList.add("windmill-shake");
+  finalImage.classList.remove("raised");
+  finalImage.style.width = "190px";
+  finalImage.style.transform = "";
+  setInterval(() => {
+    resultHeader.classList.remove("windmill-shake");
+    void resultHeader.offsetWidth;
+    resultHeader.classList.add("windmill-shake");
+  }, 2800);
+}
       resultPage.style.backgroundSize = "cover";
       resultPage.style.backgroundPosition = "center";
       finalScoreEl.textContent = `Score : ${score} sur ${quizData.length}`;
   if (score === quizData.length) {
   finalImage.src = "images/perfect.gif";
 } else {
-  finalImage.src = "images/lose1.gif";
+  finalImage.src = "images/lose2.gif";
 }
       if (score === quizData.length) {
         document.getElementById("perfect-sound").currentTime = 0;
