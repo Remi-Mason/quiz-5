@@ -585,6 +585,12 @@
   cursor: pointer;
   transition: transform 0.1s ease-in-out;
 }
+      @media (max-width: 480px) {
+  #quiz-container {
+    max-height: 80vh; /* 80% de la hauteur de l'écran */
+    overflow-y: auto; /* Ajoute une barre de défilement verticale si nécessaire */
+  }
+}
   </style>
 </head>
 <body>
@@ -601,7 +607,11 @@
   <div class="container" id="home">
     <img src="images/titre.png" alt="quiz ssiap1" class="floating-title">
     <img src="images/decor1.gif" alt="pik" class="pikachu" style="z-index: 3;">
-    <img id="mute-btn" src="images/mute-off.gif" alt="Son activé" style="cursor: pointer; width: 30px; height: 25px; margin: -10px auto -2px;">
+    <div class="mute-wrapper" style="position: relative; display: inline-block; text-align: center;">
+    <img id="mute-btn" src="images/mute-off.gif" alt="Son activé" style="cursor: pointer; width: 30px; height: 25px; margin: 10px auto; display: block;">
+    <img id="additional-image" src="images/diez.png" alt="Nouvelle image" 
+         style="position: absolute; right: -120px; top: 50%; transform: translateY(-50%); cursor: pointer; width: 60px;">
+  </div>
     <button id="start-btn"><img src="images/start.png" style="margin-bottom: -15px; width: 130px"></button>
     <button id="home-index-btn" class="index-btn">INDEX</button>
   </div>
@@ -627,10 +637,11 @@
   </div>
 
   <div id="index-modal">
-  <button class="index-option" data-url="https://remi-mason.github.io/quiz-1/">1</button>
-  <button class="index-option" data-url="https://remi-mason.github.io/quiz-1-2/">2</button>
-  <button class="index-option" data-url="https://remi-mason.github.io/quiz-1-3/">3</button>
+  <button class="index-option" data-url="https://remi-mason.github.io/quiz-5/">1</button>
+  <button class="index-option" data-url="https://remi-mason.github.io/quiz-5-2/">2</button>
+  <button class="index-option" data-url="https://remi-mason.github.io/quiz-5-3/">3</button>
   <br>
+      <button class="index-option" data-url="https://remi-mason.github.io/quiz-5-4/" style="margin-top:20px;">4</button>
   <button id="close-index-modal">Fermer</button>
 </div>
   
@@ -649,11 +660,344 @@
     
     // Données du quiz
     const quizData = [
-      {
-        question: "Sur quel feu peut-on utiliser un extincteur à eau pulvérisée avec additif (A.F.F.F.) ?",
-        options: ["Classe A", "Classe B", "Classe C", "Classe D", "Classe F", "aucune des réponses précédentes"],
-        correctAnswers: ["Classe A", "Classe B"]
-      }
+ {
+            "question": "Que signifie l'acronyme A.E.S. ?",
+            "options": [
+                "Alimentation Électrique de Sécurité.",
+                "Système de ventilation incendie",
+                "Type d'extincteur spécifique",
+                "Norme de construction en ERP",
+                "Aucune des réponses"
+            ],
+            "correctAnswers": [
+                "Alimentation Électrique de Sécurité."
+            ]
+        },
+        {
+            "question": "Que signifie l'acronyme A.P.S.A.D. ?",
+            "options": [
+                "Assemblée Plénière des Sociétés d’Assurance Dommage.",
+                "Système de ventilation incendie",
+                "Type d'extincteur spécifique",
+                "Norme de construction en ERP",
+                "Aucune des réponses"
+            ],
+            "correctAnswers": [
+                "Assemblée Plénière des Sociétés d’Assurance Dommage."
+            ]
+        },
+        {
+            "question": "Que signifie l'acronyme B.A.A.S. ?",
+            "options": [
+                "Bloc Autonome d'Alarme Sonore.",
+                "Système de ventilation incendie",
+                "Type d'extincteur spécifique",
+                "Norme de construction en ERP",
+                "Aucune des réponses"
+            ],
+            "correctAnswers": [
+                "Bloc Autonome d'Alarme Sonore."
+            ]
+        },
+        {
+            "question": "Que signifie l'acronyme B.A.E.H. ?",
+            "options": [
+                "Bloc Autonome d’Éclairage pour Habitation.",
+                "Système de ventilation incendie",
+                "Type d'extincteur spécifique",
+                "Norme de construction en ERP",
+                "Aucune des réponses"
+            ],
+            "correctAnswers": [
+                "Bloc Autonome d’Éclairage pour Habitation."
+            ]
+        },
+        {
+            "question": "Que signifie l'acronyme B.A.E.S. ?",
+            "options": [
+                "Bloc Autonome d’Éclairage de Sécurité.",
+                "Système de ventilation incendie",
+                "Type d'extincteur spécifique",
+                "Norme de construction en ERP",
+                "Aucune des réponses"
+            ],
+            "correctAnswers": [
+                "Bloc Autonome d’Éclairage de Sécurité."
+            ]
+        },
+        {
+            "question": "Que signifie l'acronyme B.P.I. ?",
+            "options": [
+                "Bouche à Incendie.",
+                "Système de ventilation incendie",
+                "Type d'extincteur spécifique",
+                "Norme de construction en ERP",
+                "Aucune des réponses"
+            ],
+            "correctAnswers": [
+                "Bouche à Incendie."
+            ]
+        },
+        {
+            "question": "Que signifie l'acronyme C.C.D.S.A. ?",
+            "options": [
+                "Commission Consultative Départementale de Sécurité et d’Accessibilité.",
+                "Système de ventilation incendie",
+                "Type d'extincteur spécifique",
+                "Norme de construction en ERP",
+                "Aucune des réponses"
+            ],
+            "correctAnswers": [
+                "Commission Consultative Départementale de Sécurité et d’Accessibilité."
+            ]
+        },
+        {
+            "question": "Que signifie l'acronyme C.C.H. ?",
+            "options": [
+                "Code de la Construction et de l’Habitation.",
+                "Système de ventilation incendie",
+                "Type d'extincteur spécifique",
+                "Norme de construction en ERP",
+                "Aucune des réponses"
+            ],
+            "correctAnswers": [
+                "Code de la Construction et de l’Habitation."
+            ]
+        },
+        {
+            "question": "Que signifie l'acronyme C.C.S. ?",
+            "options": [
+                "Commission Centrale de Sécurité.",
+                "Système de ventilation incendie",
+                "Type d'extincteur spécifique",
+                "Norme de construction en ERP",
+                "Aucune des réponses"
+            ],
+            "correctAnswers": [
+                "Commission Centrale de Sécurité."
+            ]
+        },
+        {
+            "question": "Que signifie l'acronyme C.F. ?",
+            "options": [
+                "Coupe Feu.",
+                "Système de ventilation incendie",
+                "Type d'extincteur spécifique",
+                "Norme de construction en ERP",
+                "Aucune des réponses"
+            ],
+            "correctAnswers": [
+                "Coupe Feu."
+            ]
+        },
+        {
+            "question": "Que signifie l'acronyme C.H. ?",
+            "options": [
+                "Colonne Humide.",
+                "Système de ventilation incendie",
+                "Type d'extincteur spécifique",
+                "Norme de construction en ERP",
+                "Aucune des réponses"
+            ],
+            "correctAnswers": [
+                "Colonne Humide."
+            ]
+        },
+        {
+            "question": "Que signifie l'acronyme C.H.C. ?",
+            "options": [
+                "Circulation Horizontale Commune.",
+                "Système de ventilation incendie",
+                "Type d'extincteur spécifique",
+                "Norme de construction en ERP",
+                "Aucune des réponses"
+            ],
+            "correctAnswers": [
+                "Circulation Horizontale Commune."
+            ]
+        },
+        {
+            "question": "Que signifie l'acronyme C.M.S.I. ?",
+            "options": [
+                "Centralisateur de Mise en Sécurité Incendie.",
+                "Système de ventilation incendie",
+                "Type d'extincteur spécifique",
+                "Norme de construction en ERP",
+                "Aucune des réponses"
+            ],
+            "correctAnswers": [
+                "Centralisateur de Mise en Sécurité Incendie."
+            ]
+        },
+        {
+            "question": "Que signifie l'acronyme C.S. ?",
+            "options": [
+                "Colonne Sèche.",
+                "Système de ventilation incendie",
+                "Type d'extincteur spécifique",
+                "Norme de construction en ERP",
+                "Aucune des réponses"
+            ],
+            "correctAnswers": [
+                "Colonne Sèche."
+            ]
+        },
+        {
+            "question": "Que signifie l'acronyme C.T.I. ?",
+            "options": [
+                "Commission Technique Interministérielle (I.G.H.).",
+                "Système de ventilation incendie",
+                "Type d'extincteur spécifique",
+                "Norme de construction en ERP",
+                "Aucune des réponses"
+            ],
+            "correctAnswers": [
+                "Commission Technique Interministérielle (I.G.H.)."
+            ]
+        },
+        {
+            "question": "Que signifie l'acronyme C.U. ?",
+            "options": [
+                "Certificat d’Urbanisme.",
+                "Système de ventilation incendie",
+                "Type d'extincteur spécifique",
+                "Norme de construction en ERP",
+                "Aucune des réponses"
+            ],
+            "correctAnswers": [
+                "Certificat d’Urbanisme."
+            ]
+        },
+        {
+            "question": "Que signifie l'acronyme D.A.C. ?",
+            "options": [
+                "Dispositif Adaptateur de Commande.",
+                "Système de ventilation incendie",
+                "Type d'extincteur spécifique",
+                "Norme de construction en ERP",
+                "Aucune des réponses"
+            ],
+            "correctAnswers": [
+                "Dispositif Adaptateur de Commande."
+            ]
+        },
+        {
+            "question": "Que signifie l'acronyme D.A.D. ?",
+            "options": [
+                "Détecteur Autonome Déclencheur.",
+                "Système de ventilation incendie",
+                "Type d'extincteur spécifique",
+                "Norme de construction en ERP",
+                "Aucune des réponses"
+            ],
+            "correctAnswers": [
+                "Détecteur Autonome Déclencheur."
+            ]
+        },
+        {
+            "question": "Que signifie l'acronyme D.A.I. ?",
+            "options": [
+                "Détecteur Automatique d’Incendie.",
+                "Système de ventilation incendie",
+                "Type d'extincteur spécifique",
+                "Norme de construction en ERP",
+                "Aucune des réponses"
+            ],
+            "correctAnswers": [
+                "Détecteur Automatique d’Incendie."
+            ]
+        },
+        {
+            "question": "Que signifie l'acronyme D.A.S. ?",
+            "options": [
+                "Dispositif Actionné de Sécurité.",
+                "Système de ventilation incendie",
+                "Type d'extincteur spécifique",
+                "Norme de construction en ERP",
+                "Aucune des réponses"
+            ],
+            "correctAnswers": [
+                "Dispositif Actionné de Sécurité."
+            ]
+        },
+        {
+            "question": "Que signifie l'acronyme D.C.M. ?",
+            "options": [
+                "Dispositif de Commande Manuelle.",
+                "Système de ventilation incendie",
+                "Type d'extincteur spécifique",
+                "Norme de construction en ERP",
+                "Aucune des réponses"
+            ],
+            "correctAnswers": [
+                "Dispositif de Commande Manuelle."
+            ]
+        },
+        {
+            "question": "Que signifie l'acronyme D.C.M.R. ?",
+            "options": [
+                "Dispositif de Commandes Manuelles Regroupées.",
+                "Système de ventilation incendie",
+                "Type d'extincteur spécifique",
+                "Norme de construction en ERP",
+                "Aucune des réponses"
+            ],
+            "correctAnswers": [
+                "Dispositif de Commandes Manuelles Regroupées."
+            ]
+        },
+        {
+            "question": "Que signifie l'acronyme D.C.S. ?",
+            "options": [
+                "Dispositif de Commande avec Signalisation.",
+                "Système de ventilation incendie",
+                "Type d'extincteur spécifique",
+                "Norme de construction en ERP",
+                "Aucune des réponses"
+            ],
+            "correctAnswers": [
+                "Dispositif de Commande avec Signalisation."
+            ]
+        },
+        {
+            "question": "Que signifie l'acronyme D.C.T. ?",
+            "options": [
+                "Dispositif Commandé Terminal.",
+                "Système de ventilation incendie",
+                "Type d'extincteur spécifique",
+                "Norme de construction en ERP",
+                "Aucune des réponses"
+            ],
+            "correctAnswers": [
+                "Dispositif Commandé Terminal."
+            ]
+        },
+        {
+            "question": "Que signifie l'acronyme D.D.S.I.S. ?",
+            "options": [
+                "Direction Départementale des Services d’Incendie et de Secours.",
+                "Système de ventilation incendie",
+                "Type d'extincteur spécifique",
+                "Norme de construction en ERP",
+                "Aucune des réponses"
+            ],
+            "correctAnswers": [
+                "Direction Départementale des Services d’Incendie et de Secours."
+            ]
+        },
+        {
+            "question": "Que signifie l'acronyme D.I. ?",
+            "options": [
+                "Détecteur Incendie.",
+                "Système de ventilation incendie",
+                "Type d'extincteur spécifique",
+                "Norme de construction en ERP",
+                "Aucune des réponses"
+            ],
+            "correctAnswers": [
+                "Détecteur Incendie."
+            ]
+        }
     ];
     
     let currentQuestion = 0;
