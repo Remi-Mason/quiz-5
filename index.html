@@ -28,7 +28,7 @@
   <link rel="preload" as="image" href="images/titre.png">
   
   <style>
-    /* Animations */
+    /* Animations et styles généraux */
     @keyframes victoryAnimation {
       0% { transform: scale(1) rotate(0deg); }
       20% { transform: scale(1.1) rotate(3deg); }
@@ -57,56 +57,6 @@
       animation: windmillShake 0.8s ease-in-out forwards !important;
       transform-origin: center;
     }
-    @keyframes levitateLeft {
-      0%   { transform: translate(40px, -10px); }
-      50%  { transform: translate(40px, -20px); }
-      100% { transform: translate(40px, -10px); }
-    }
-    @keyframes levitateRight {
-      0%   { transform: translate(-40px, -10px); }
-      50%  { transform: translate(-40px, -20px); }
-      100% { transform: translate(-40px, -10px); }
-    }
-    @keyframes shake {
-      0% { transform: translate(0, 0); }
-      10% { transform: translate(-10px, -10px); }
-      20% { transform: translate(10px, 10px); }
-      30% { transform: translate(-10px, 10px); }
-      40% { transform: translate(10px, -10px); }
-      50% { transform: translate(-10px, -10px); }
-      60% { transform: translate(10px, 10px); }
-      70% { transform: translate(-10px, 10px); }
-      80% { transform: translate(10px, -10px); }
-      90% { transform: translate(-10px, -10px); }
-      100% { transform: translate(0, 0); }
-    }
-    @keyframes popAnimation {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.2); }
-      100% { transform: scale(1); }
-    }
-    @keyframes blink {
-      0% { opacity: 1; }
-      50% { opacity: 0; }
-      100% { opacity: 1; }
-    }
-    @keyframes glow-green {
-      0% { box-shadow: 0 0 5px rgba(0,255,0,0.7); }
-      50% { box-shadow: 0 0 20px rgba(0,255,0,0.9); }
-      100% { box-shadow: 0 0 5px rgba(0,255,0,0.7); }
-    }
-    @keyframes borderGlow {
-      0%, 100% { box-shadow: 0 0 5px 2px purple; }
-      50% { box-shadow: 0 0 20px 2px purple; }
-    }
-    @keyframes borderGlow2 {
-      0%, 100% { box-shadow: 0 0 5px 2px rgba(255,0,0,0.7); }
-      50% { box-shadow: 0 0 20px 2px rgba(255,0,0,0.7); }
-    }
-    @keyframes borderGlowGreen {
-      0%, 100% { box-shadow: 0 0 5px 2px rgba(0,255,0,0.7); }
-      50% { box-shadow: 0 0 20px 2px rgba(0,255,0,0.7); }
-    }
     @keyframes floatAnimation {
       0%   { transform: translateY(0); }
       50%  { transform: translateY(-10px); }
@@ -128,9 +78,6 @@
       width: 270px !important;
       height: 192px !important;
       border: 3px solid white;
-    }
-    #result-header {
-      margin-bottom: 40px;
     }
     html, body {
       height: 100%;
@@ -159,7 +106,7 @@
       transition: transform 0.3s ease;
       position: relative;
     }
-    /* Page d'accueil */
+    /* Boutons et éléments sur la page d'accueil */
     #home { width: 360px; }
     #start-btn {
       display: flex;
@@ -184,7 +131,6 @@
     }
     #start-btn:active {
       transform: scale(0.95);
-      animation: glow-green 1.5s infinite ease-in-out, blink 0.3s infinite ease-in-out;
     }
     #start-btn img {
       position: absolute;
@@ -194,6 +140,26 @@
       width: 120px;
       height: auto;
       pointer-events: none;
+    }
+    /* Bouton INDEX identique pour Home et Resultat */
+    .index-btn {
+      width: 80px;
+      height: 40px;
+      font-size: 14px;
+      margin: 10px auto 0;
+      display: block;
+      cursor: pointer;
+      background: linear-gradient(to top, black, gray);
+      color: white;
+      font-weight: bold;
+      border: 2px solid white;
+      border-radius: 10px;
+      text-shadow: 1px 1px 2px black;
+      transition: transform 0.1s ease-in-out;
+      animation: borderGlow 2s ease-in-out infinite;
+    }
+    .index-btn:active {
+      transform: scale(0.95);
     }
     /* Zone du quiz */
     #quiz-container {
@@ -305,7 +271,6 @@
       align-items: center;
       justify-content: center;
     }
-    .correct-decoration { width: 60px; }
     .correct-container .result-image.correct {
       animation: popAnimation 0.5s ease-out;
       width: 80px;
@@ -323,6 +288,7 @@
       background: url('images/wall.png') no-repeat center center;
       display: none; 
       position: relative;
+      padding-top: 50px;
     }
     #result-page h2 { font-size: 24px; margin-bottom: 20px; }
     #final-score {
@@ -357,171 +323,65 @@
       z-index: 6; 
     }
     #restart-btn:active { transform: scale(0.95); }
-    .incorrect-container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: -30px;
-    }
-    .decor-rightX {
-      width: 60px;
-      transform: translate(-30px, 3px) scale(3);
-      z-index: 0;
-      padding: 12px 0;
-      animation: levitateRightX 1s ease-in-out infinite;
-    }
-    .decor-leftX {
-      width: 60px;
-      transform: translate(30px, 3px) scale(1.5);
-      z-index: 0;
-      padding: 12px 0;
-      animation: levitateLeftX 1s ease-in-out infinite;
-    }
-    .decor-right {
-      width: 60px;
-      transform: translate(-40px, 0);
-      z-index: 0;
-      padding: 12px 0;
-      animation: levitateRight 1s ease-in-out infinite;
-    }
-    .decor-left {
-      width: 60px;
-      transform: translate(40px, 0);
-      z-index: 0;
-      padding: 12px 0;
-      animation: levitateLeft 1s ease-in-out infinite;
-    }
-    @keyframes levitateLeftX {
-      0%   { transform: translate(40px, -20px); }
-      50%  { transform: translate(40px, -30px); }
-      100% { transform: translate(40px, -20px); }
-    }
-    @keyframes levitateRightX {
-      0%   { transform: translate(-40px, -20px); }
-      50%  { transform: translate(-40px, -30px); }
-      100% { transform: translate(-40px, -20px); }
-    }
-    /* Media Query pour mobile */
-    @media (max-width: 480px) {
-      .container {       
-        width: 360px;
-        max-width: 90%;
-        padding: 30px;
-      }
-      #overlay {
-        top: 85px !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-      }
-      #question-text { font-size: 18px; }
-      #final-score { font-size: 20px; }
-      .floating-title { margin: 0 auto 0; }
-      .pikachu { display: block; }
-      .startu { border-radius: 10px; }
-      .incorrect-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .again {
-        display: block;
-        margin: 0 auto;
-        transform: translateX(0);
-      }
-      @keyframes windmillShake {
-        0% { transform: rotate(0deg); }
-        15% { transform: rotate(15deg); }
-        30% { transform: rotate(-15deg); }
-        45% { transform: rotate(10deg); }
-        60% { transform: rotate(-10deg); }
-        75% { transform: rotate(5deg); }
-        100% { transform: rotate(0deg); }
-      }
-      .windmill-shake {
-        animation: windmillShake 0.8s ease-in-out forwards;
-        transform-origin: center;
-      }
-      .raised {
-        transform: translateY(-20px);
-        margin-bottom: -10px !important;
-      }
-      @keyframes victoryAnimation {
-        0% { transform: scale(1) rotate(0deg); }
-        20% { transform: scale(1.1) rotate(3deg); }
-        40% { transform: scale(1) rotate(-3deg); }
-        60% { transform: scale(1.1) rotate(3deg); }
-        80% { transform: scale(1) rotate(-3deg); }
-        90% { transform: scale(1) rotate(0deg); }
-        100% { transform: scale(1) rotate(0deg); }
-      }
-      .victory-animation {
-        animation: victoryAnimation 2s ease-in-out infinite;
-        transform-origin: center;
-      }
-    }
-    @media (max-width: 480px) {
-      @keyframes levitateLeft {
-        0%   { transform: translate(20px, -5px); }
-        50%  { transform: translate(20px, -15px); }
-        100% { transform: translate(20px, -5px); }
-      }
-      @keyframes levitateRight {
-        0%   { transform: translate(-20px, -5px); }
-        50%  { transform: translate(-20px, -15px); }
-        100% { transform: translate(-20px, -5px); }
-      }
-    }
-    @media (max-width: 480px) {
-      @keyframes levitateLeftX {
-        0%   { transform: translate(30px, -30px); }
-        50%  { transform: translate(30px, -20px); }
-        100% { transform: translate(30px, -30px); }
-      }
-      @keyframes levitateRightX {
-        0%   { transform: translate(-30px, -30px); }
-        50%  { transform: translate(-30px, -20px); }
-        100% { transform: translate(-30px, -30px); }
-      }
-    }
-    .centipod {
-      display: block;
+    /* Ajout du bouton INDEX sur la page finale */
+    #result-index-btn {
       margin: 0 auto;
+      width: 80px;
+      height: 40px;
+      font-size: 14px;
+      display: block;
+      cursor: pointer;
+      background: linear-gradient(to top, black, gray);
+      color: white;
+      font-weight: bold;
+      border: 2px solid white;
+      border-radius: 10px;
+      text-shadow: 1px 1px 2px black;
+      transition: transform 0.1s ease-in-out;
+      animation: borderGlow 2s ease-in-out infinite;
     }
-    @media (max-width: 480px) {
-      #question-text { font-size: 20px; }
+    #result-index-btn:active { transform: scale(0.95); }
+    /* Modal INDEX */
+    #index-modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.5);
+      padding: 20px;
+      border-radius: 15px;
+      z-index: 1000;
+      text-align: center;
+      width: 300px;
+      max-width: 80%;
     }
-    @media (max-width: 480px) {
-      #final-score { font-size: 28px !important; }
+    #index-modal .index-option {
+      width: 60px;
+      height: 60px;
+      margin: 0 10px;
+      font-size: 18px;
+      border: 2px solid white;
+      border-radius: 50%;
+      background: linear-gradient(to top, black, gray);
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.1s ease-in-out;
     }
-    @media (max-width: 480px) {
-      #mute-btn { margin-bottom: 0px!important; }
+    #index-modal .index-option:active {
+      transform: scale(0.95);
     }
-    @media (max-width: 480px) {
-      #result-page { padding-top: 70px; }
-    }
-    @media (max-width: 480px) {
-      .victory-animation {
-        animation: mobileVictoryAnimation 2s ease-in-out infinite !important;
-      }
-    }
-    @keyframes mobileVictoryAnimation {
-      0%   { transform: translateY(-60px) scale(1) rotate(0deg); }
-      20%  { transform: translateY(-60px) scale(1.1) rotate(3deg); }
-      40%  { transform: translateY(-60px) scale(1) rotate(-3deg); }
-      60%  { transform: translateY(-60px) scale(1.1) rotate(3deg); }
-      80%  { transform: translateY(-60px) scale(1) rotate(-3deg); }
-      100% { transform: translateY(-60px) scale(1) rotate(0deg); }
-    }
-    @media (max-width: 480px) {
-      .perfect-img {
-        margin-bottom: 30px!important;
-      }
-    }
-    @media (max-width: 480px) {
-      .mobile-youwin {
-        margin-top: 20px !important;
-        margin-bottom: -30px !important;
-      }
+    #index-modal #close-index-modal {
+      margin-top: 20px;
+      padding: 8px 16px;
+      font-size: 16px;
+      border: 2px solid white;
+      border-radius: 5px;
+      background: linear-gradient(to top, black, gray);
+      color: white;
+      cursor: pointer;
+      transition: transform 0.1s ease-in-out;
     }
   </style>
 </head>
@@ -538,9 +398,11 @@
   <!-- Page d'accueil -->
   <div class="container" id="home">
     <img src="images/titre.png" alt="quiz ssiap1" class="floating-title">
-    <img src="images/decor1.gif" alt="pik" class="pikachu" style="z-index: 3;">
+    <img src="images/decor1.gif" alt="Décor" class="pikachu" style="z-index: 3;">
     <img id="mute-btn" src="images/mute-off.gif" alt="Son activé" style="cursor: pointer; width: 30px; height: 25px; margin: -10px auto -2px;">
     <button id="start-btn"><img src="images/start.png" style="margin-bottom: -15px; width: 130px"></button>
+    <!-- Bouton INDEX sur la page d'accueil -->
+    <button id="home-index-btn" class="index-btn">INDEX</button>
   </div>
   
   <!-- Zone du quiz -->
@@ -560,10 +422,23 @@
     <img id="final-image" src="images/lose2.gif" alt="Résultat" style="display:block; margin: -15px auto 20px;">
     <p id="final-score">Score : 0 sur 3</p>
     <button id="restart-btn" style="text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 3px 3px 5px black;">RECOMMENCER</button>
+    <!-- Bouton INDEX sur la page de résultats -->
+    <button id="result-index-btn" class="index-btn">INDEX</button>
+  </div>
+  
+  <!-- Modal INDEX commun -->
+  <div id="index-modal">
+    <button class="index-option" data-url="https://remi-mason.github.io/quiz-1/">1</button>
+    <button class="index-option" data-url="https://remi-mason.github.io/quiz-1-2/">2</button>
+    <button class="index-option" data-url="https://remi-mason.github.io/quiz-1-3/">3</button>
+    <br>
+    <button id="close-index-modal">Fermer</button>
   </div>
   
   <script>
+    // Assurez-vous que le DOM est chargé avant d'ajouter les écouteurs
     document.addEventListener("DOMContentLoaded", function() {
+      // Gestion de l'image décorative
       var decorImage = document.querySelector('.pikachu');
       if (decorImage) {
         decorImage.src = "images/decor1.gif";
@@ -573,9 +448,46 @@
           decorImage.style.width = "235px";
         }, 18000);
       }
+      
+      // Ajout des écouteurs pour les boutons INDEX sur home et result
+      const indexModal = document.getElementById("index-modal");
+      const closeIndexModal = document.getElementById("close-index-modal");
+      const homeIndexBtn = document.getElementById("home-index-btn");
+      const resultIndexBtn = document.getElementById("result-index-btn");
+      
+      if(homeIndexBtn) {
+        homeIndexBtn.addEventListener("click", function(){
+          indexModal.style.display = "block";
+        });
+      }
+      if(resultIndexBtn) {
+        resultIndexBtn.addEventListener("click", function(){
+          indexModal.style.display = "block";
+        });
+      }
+      if(closeIndexModal) {
+        closeIndexModal.addEventListener("click", function(){
+          indexModal.style.display = "none";
+        });
+      }
+      const indexOptions = document.querySelectorAll("#index-modal .index-option");
+      indexOptions.forEach(button => {
+        button.addEventListener("click", function(){
+          window.location.href = button.dataset.url;
+        });
+      });
+      
+      // Gestion du bouton mute
+      var muteImg = document.getElementById("mute-btn");
+      if (muteImg && muteImg.src.indexOf(".gif") !== -1) {
+        var newMuteImg = muteImg.cloneNode(true);
+        newMuteImg.src = newMuteImg.src.split('?')[0] + '?t=' + new Date().getTime();
+        muteImg.parentNode.replaceChild(newMuteImg, muteImg);
+        newMuteImg.addEventListener("click", muteToggleHandler);
+      }
     });
     
-    // Données du quiz
+    // Données du quiz (exemple)
     const quizData = [
       {
         question: "Sur quel feu peut-on utiliser un extincteur à eau pulvérisée avec additif (A.F.F.F.) ?",
@@ -624,16 +536,6 @@
         this.alt = "Son activé";
       }
     }
-    muteBtn.addEventListener("click", muteToggleHandler);
-    document.addEventListener("DOMContentLoaded", function() {
-      var muteImg = document.getElementById("mute-btn");
-      if (muteImg && muteImg.src.indexOf(".gif") !== -1) {
-        var newMuteImg = muteImg.cloneNode(true);
-        newMuteImg.src = newMuteImg.src.split('?')[0] + '?t=' + new Date().getTime();
-        muteImg.parentNode.replaceChild(newMuteImg, muteImg);
-        newMuteImg.addEventListener("click", muteToggleHandler);
-      }
-    });
     
     // Démarrage du quiz
     startBtn.addEventListener("click", () => {
@@ -710,7 +612,6 @@
             <img src="images/ken.gif" alt="Décoration droite" class="decor-right">
           </div>
         `;
-        // Passage automatique à la question suivante après 2 secondes
         setTimeout(() => {
           currentQuestion++;
           if (currentQuestion < quizData.length) {
@@ -722,7 +623,6 @@
           }
         }, 2000);
       } else {
-        // Réponse incorrecte : on affiche immédiatement le résultat
         const selectedSound = (Math.random() < 0.5) ? incorrectSound : document.getElementById("incorrect-sound2");
         selectedSound.currentTime = 0;
         selectedSound.play();
@@ -735,13 +635,9 @@
           <div class="incorrect-answer-header">Réponse :</div>
           <div class="incorrect-answer-text">${data.correctAnswers.join(", ")}</div>
         `;
-        // Après 2 secondes, on remplace l'image incorrecte par un bouton "Suivant" et on supprime les décorations
         setTimeout(() => {
           const container = document.querySelector(".incorrect-container");
-          if (container) {
-            container.innerHTML = ""; // supprimer ryu2.gif et ken2.gif ainsi que l'image incorrecte
-          }
-          // Création du bouton "Suivant"
+          if (container) { container.innerHTML = ""; }
           const nextBtn = document.createElement("button");
           nextBtn.textContent = "Suivant";
           nextBtn.style.fontWeight = "bold";
@@ -756,11 +652,9 @@
           nextBtn.style.cursor = "pointer";
           nextBtn.style.transition = "transform 0.1s ease, box-shadow 0.1s ease";
           nextBtn.style.animation = "borderGlow 2s ease-in-out infinite";
-          // Insertion du bouton avant le bloc "Réponse :"
-          const header = document.querySelector(".incorrect-answer-header");
-          resultDiv.insertBefore(nextBtn, header);
+          resultDiv.insertBefore(nextBtn, document.querySelector(".incorrect-answer-header"));
           nextBtn.addEventListener("click", () => {
-            // Au clic, on passe à la question suivante
+            nextBtn.remove();
             currentQuestion++;
             if (currentQuestion < quizData.length) {
               showQuestion();
@@ -779,29 +673,15 @@
       quizContainer.style.display = "none";
       resultPage.style.display = "block";
       const resultHeader = document.getElementById("result-header");
-    
       if (score === quizData.length) {
         restartBtn.style.animation = "borderGlowGreen 2s ease-in-out infinite";
         resultPage.style.background = "url('images/wall.png') no-repeat center center";
         resultHeader.src = "images/youwin.png";
         resultHeader.classList.add("victory-animation");
         resultHeader.style.marginBottom = "10px";
-        if (window.innerWidth <= 480) {
-          resultHeader.classList.add("mobile-youwin");
-        } else {
-          resultHeader.style.transform = "translateX(0)";
-          resultHeader.style.marginTop = "10px";
-        }
         finalScoreEl.style.color = "#00ff1a";
         finalImage.classList.add("raised");
         finalImage.style.width = (window.innerWidth <= 480) ? "150px" : "190px";
-        if (window.innerWidth <= 480) {
-          finalImage.style.marginTop = "-25px";
-          finalImage.style.marginBottom = "10px";
-        } else {
-          finalImage.style.marginTop = "";
-          finalImage.style.marginBottom = "";
-        }
         if (!document.getElementById("confet-overlay")) {
           let overlay = document.createElement("img");
           overlay.id = "confet-overlay";
@@ -820,13 +700,8 @@
         restartBtn.style.animation = "borderGlow2 2s ease-in-out infinite";
         resultPage.style.background = "url('images/wall2.png') no-repeat center center";
         resultHeader.src = "images/tryagain.png";
-        if (window.innerWidth <= 480) {
-          resultHeader.style.transform = "translateY(-40px)";
-          resultHeader.style.marginTop = "-40px";
-        } else {
-          resultHeader.style.transform = "translateY(-20px)";
-          resultHeader.style.marginTop = "-30px";
-        }
+        resultHeader.style.transform = "translateY(-20px)";
+        resultHeader.style.marginTop = "-30px";
         finalScoreEl.style.color = "red";
         resultHeader.classList.add("windmill-shake");
         finalImage.classList.remove("raised");
@@ -838,19 +713,12 @@
           resultHeader.classList.add("windmill-shake");
         }, 2800);
       }
-    
       resultPage.style.backgroundSize = "cover";
       resultPage.style.backgroundPosition = "center";
       finalScoreEl.textContent = `Score : ${score} sur ${quizData.length}`;
-    
-      if (score === quizData.length) {
-        finalImage.src = "images/perfect.gif";
-        finalImage.classList.add("perfect-img");
-        finalImage.style.marginBottom = "30px";
-      } else {
-        finalImage.src = "images/lose2.gif";
-      }
-    
+      finalImage.src = (score === quizData.length)
+        ? "images/perfect.gif"
+        : "images/lose2.gif";
       if (score === quizData.length) {
         document.getElementById("perfect-sound").currentTime = 0;
         document.getElementById("perfect-sound").play();
@@ -861,13 +729,6 @@
     }
     
     restartBtn.addEventListener("click", () => { window.location.reload(); });
-    document.addEventListener("DOMContentLoaded", function() {
-      var decorImage = document.querySelector('.pikachu');
-      if (decorImage) {
-        decorImage.src = "images/decor1.gif?t=" + new Date().getTime();
-        decorImage.style.visibility = 'visible';
-      }
-    });
   </script>
 </body>
 </html>
