@@ -1078,40 +1078,38 @@ shuffleArray(quizData);
     });
     
     // Affichage de la question
-    function showQuestion() {
-      resultDiv.innerHTML = "";
-      const data = quizData[currentQuestion];
-      questionCounterEl.textContent = `${currentQuestion + 1} / ${quizData.length}`;
-      questionTextEl.textContent = data.question;
-      optionsDiv.innerHTML = "";
-      data.options.forEach((option, index) => {
-         // Mélanger les options avant de les afficher
+   function showQuestion() {
+  resultDiv.innerHTML = "";
+  const data = quizData[currentQuestion];
+
+  // Mélanger les options avant de les afficher
   shuffleArray(data.options);
 
   questionCounterEl.textContent = `${currentQuestion + 1} / ${quizData.length}`;
   questionTextEl.textContent = data.question;
   optionsDiv.innerHTML = "";
-  data.options.forEach((option, index) => {
 
-        const div = document.createElement("div");
-        div.className = "option";
-        const checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.value = option;
-        checkbox.name = "option";
-        checkbox.id = `option_${index}`;
-        checkbox.addEventListener("click", () => { 
-          checkboxSound.currentTime = 0; 
-          checkboxSound.play(); 
-        });
-        const label = document.createElement("label");
-        label.htmlFor = `option_${index}`;
-        label.textContent = option;
-        div.appendChild(checkbox);
-        div.appendChild(label);
-        optionsDiv.appendChild(div);
-      });
-    }
+  data.options.forEach((option, index) => {
+    const div = document.createElement("div");
+    div.className = "option";
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.value = option;
+    checkbox.name = "option";
+    checkbox.id = `option_${index}`;
+    checkbox.addEventListener("click", () => { 
+      checkboxSound.currentTime = 0; 
+      checkboxSound.play(); 
+    });
+    const label = document.createElement("label");
+    label.htmlFor = `option_${index}`;
+    label.textContent = option;
+    div.appendChild(checkbox);
+    div.appendChild(label);
+    optionsDiv.appendChild(div);
+  });
+}
+
     
     // Comparaison des tableaux
     function arraysEqual(a, b) {
