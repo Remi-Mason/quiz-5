@@ -657,12 +657,6 @@
         }, 18000);
       }
     });
-    function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-}
     // Données du quiz
     const quizData = [
  {
@@ -1004,7 +998,16 @@
             ]
         }
     ];
-    
+     // Fonction de mélange (shuffle) avec l'algorithme Fisher-Yates
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+// Mélange des questions
+shuffleArray(quizData);
     let currentQuestion = 0;
     let score = 0;
     let isMuted = false;
@@ -1082,6 +1085,16 @@
       questionTextEl.textContent = data.question;
       optionsDiv.innerHTML = "";
       data.options.forEach((option, index) => {
+         // Mélanger les options avant de les afficher
+  shuffleArray(data.options);
+
+  questionCounterEl.textContent = `${currentQuestion + 1} / ${quizData.length}`;
+  questionTextEl.textContent = data.question;
+  optionsDiv.innerHTML = "";
+  data.options.forEach((option, index) => {
+    // ... code de création des options ...
+  });
+}
         const div = document.createElement("div");
         div.className = "option";
         const checkbox = document.createElement("input");
