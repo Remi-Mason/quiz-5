@@ -41,7 +41,7 @@
     .victory-animation {
       animation: victoryAnimation 2s ease-in-out infinite;
       transform-origin: center;
-	  margin-top: -20px !important;
+      margin-top: -20px !important;
     }
     @keyframes windmillShake {
       0% { transform: rotate(0deg); }
@@ -435,7 +435,6 @@
         45% { transform: rotate(10deg); }
         60% { transform: rotate(-10deg); }
         75% { transform: rotate(5deg); }
-        90% { transform: rotate(-5deg); }
         100% { transform: rotate(0deg); }
       }
       .windmill-shake {
@@ -513,19 +512,17 @@
       80%  { transform: translateY(-60px) scale(1) rotate(-3deg); }
       100% { transform: translateY(-60px) scale(1) rotate(0deg); }
     }
-	  @media (max-width: 480px) {
-  .perfect-img {
-    margin-bottom: 30px!important;
-  }
-}
-	  @media (max-width: 480px) {
-  .mobile-youwin {
-    /* On n'utilise ici que margin-top pour déplacer l'image,
-       ce qui n'interfère pas avec l'animation appliquée sur transform */
-    margin-top: 20px !important;
-	  margin-bottom: -30px !important;
-  }
-}
+    @media (max-width: 480px) {
+      .perfect-img {
+        margin-bottom: 30px!important;
+      }
+    }
+    @media (max-width: 480px) {
+      .mobile-youwin {
+        margin-top: 20px !important;
+        margin-bottom: -30px !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -692,7 +689,6 @@
       return sortedA.every((val, index) => val === sortedB[index]);
     }
     
-    const incorrectSound2 = document.getElementById("incorrect-sound2");
     validateBtn.addEventListener("click", () => {
       const data = quizData[currentQuestion];
       const selected = Array.from(document.querySelectorAll('input[name="option"]:checked')).map(el => el.value);
@@ -702,6 +698,7 @@
       }
       const isCorrect = arraysEqual(selected, data.correctAnswers);
       validateBtn.style.display = "none";
+      
       if (isCorrect) {
         score++;
         correctSound.currentTime = 0;
@@ -713,8 +710,20 @@
             <img src="images/ken.gif" alt="Décoration droite" class="decor-right">
           </div>
         `;
+        // Passage automatique à la question suivante après 2 secondes
+        setTimeout(() => {
+          currentQuestion++;
+          if (currentQuestion < quizData.length) {
+            showQuestion();
+            validateBtn.style.display = "block";
+            resultDiv.innerHTML = "";
+          } else {
+            showResultPage();
+          }
+        }, 2000);
       } else {
-        const selectedSound = (Math.random() < 0.5) ? incorrectSound : incorrectSound2;
+        // Réponse incorrecte : on affiche immédiatement le résultat
+        const selectedSound = (Math.random() < 0.5) ? incorrectSound : document.getElementById("incorrect-sound2");
         selectedSound.currentTime = 0;
         selectedSound.play();
         resultDiv.innerHTML = `
@@ -726,115 +735,131 @@
           <div class="incorrect-answer-header">Réponse :</div>
           <div class="incorrect-answer-text">${data.correctAnswers.join(", ")}</div>
         `;
+        // Après 2 secondes, on remplace l'image incorrecte par un bouton "Suivant" et on supprime les décorations
+        setTimeout(() => {
+          const container = document.querySelector(".incorrect-container");
+          if (container) {
+            container.innerHTML = ""; // supprimer ryu2.gif et ken2.gif ainsi que l'image incorrecte
+          }
+          // Création du bouton "Suivant"
+          const nextBtn = document.createElement("button");
+          nextBtn.textContent = "Suivant";
+          nextBtn.style.fontWeight = "bold";
+          nextBtn.style.margin = "20px auto 10px";
+          nextBtn.style.display = "block";
+          nextBtn.style.padding = "15px 25px";
+          nextBtn.style.fontSize = "25px";
+          nextBtn.style.border = "3px solid white";
+          nextBtn.style.borderRadius = "10px";
+          nextBtn.style.backgroundColor = "#1a1d21";
+          nextBtn.style.color = "white";
+          nextBtn.style.cursor = "pointer";
+          nextBtn.style.transition = "transform 0.1s ease, box-shadow 0.1s ease";
+          nextBtn.style.animation = "borderGlow 2s ease-in-out infinite";
+          // Insertion du bouton avant le bloc "Réponse :"
+          const header = document.querySelector(".incorrect-answer-header");
+          resultDiv.insertBefore(nextBtn, header);
+          nextBtn.addEventListener("click", () => {
+            // Au clic, on passe à la question suivante
+            currentQuestion++;
+            if (currentQuestion < quizData.length) {
+              showQuestion();
+              validateBtn.style.display = "block";
+              resultDiv.innerHTML = "";
+            } else {
+              showResultPage();
+            }
+          });
+        }, 2000);
       }
-      const delayTime = isCorrect ? 2000 : 3000;
-      setTimeout(() => {
-        currentQuestion++;
-        if (currentQuestion < quizData.length) {
-          showQuestion();
-          validateBtn.style.display = "block";
-        } else {
-          showResultPage();
-        }
-      }, delayTime);
     });
     
     // Affichage de la page finale
-function showResultPage() {
-  quizContainer.style.display = "none";
-  resultPage.style.display = "block";
-  const resultHeader = document.getElementById("result-header");
-
-  if (score === quizData.length) {
-    restartBtn.style.animation = "borderGlowGreen 2s ease-in-out infinite";
-    resultPage.style.background = "url('images/wall.png') no-repeat center center";
-    resultHeader.src = "images/youwin.png";
-    resultHeader.classList.add("victory-animation");
-	 resultHeader.style = "margin-bottom: 10px";
-
-    // Positioning for youwin.png (header)
-    if (window.innerWidth <= 480) {
-     resultHeader.classList.add("mobile-youwin");
-    } else {
-      resultHeader.style.transform = "translateX(0)";
-      resultHeader.style.marginTop = "10px";
+    function showResultPage() {
+      quizContainer.style.display = "none";
+      resultPage.style.display = "block";
+      const resultHeader = document.getElementById("result-header");
+    
+      if (score === quizData.length) {
+        restartBtn.style.animation = "borderGlowGreen 2s ease-in-out infinite";
+        resultPage.style.background = "url('images/wall.png') no-repeat center center";
+        resultHeader.src = "images/youwin.png";
+        resultHeader.classList.add("victory-animation");
+        resultHeader.style.marginBottom = "10px";
+        if (window.innerWidth <= 480) {
+          resultHeader.classList.add("mobile-youwin");
+        } else {
+          resultHeader.style.transform = "translateX(0)";
+          resultHeader.style.marginTop = "10px";
+        }
+        finalScoreEl.style.color = "#00ff1a";
+        finalImage.classList.add("raised");
+        finalImage.style.width = (window.innerWidth <= 480) ? "150px" : "190px";
+        if (window.innerWidth <= 480) {
+          finalImage.style.marginTop = "-25px";
+          finalImage.style.marginBottom = "10px";
+        } else {
+          finalImage.style.marginTop = "";
+          finalImage.style.marginBottom = "";
+        }
+        if (!document.getElementById("confet-overlay")) {
+          let overlay = document.createElement("img");
+          overlay.id = "confet-overlay";
+          overlay.src = "images/confet.gif";
+          overlay.alt = "Overlay de victoire";
+          overlay.style.position = "absolute";
+          overlay.style.top = "0";
+          overlay.style.left = "0";
+          overlay.style.width = "100%";
+          overlay.style.height = "100%";
+          overlay.style.objectFit = "cover";
+          overlay.style.zIndex = "5";
+          resultPage.appendChild(overlay);
+        }
+      } else {
+        restartBtn.style.animation = "borderGlow2 2s ease-in-out infinite";
+        resultPage.style.background = "url('images/wall2.png') no-repeat center center";
+        resultHeader.src = "images/tryagain.png";
+        if (window.innerWidth <= 480) {
+          resultHeader.style.transform = "translateY(-40px)";
+          resultHeader.style.marginTop = "-40px";
+        } else {
+          resultHeader.style.transform = "translateY(-20px)";
+          resultHeader.style.marginTop = "-30px";
+        }
+        finalScoreEl.style.color = "red";
+        resultHeader.classList.add("windmill-shake");
+        finalImage.classList.remove("raised");
+        finalImage.style.width = "190px";
+        finalImage.style.transform = "";
+        setInterval(() => {
+          resultHeader.classList.remove("windmill-shake");
+          void resultHeader.offsetWidth;
+          resultHeader.classList.add("windmill-shake");
+        }, 2800);
+      }
+    
+      resultPage.style.backgroundSize = "cover";
+      resultPage.style.backgroundPosition = "center";
+      finalScoreEl.textContent = `Score : ${score} sur ${quizData.length}`;
+    
+      if (score === quizData.length) {
+        finalImage.src = "images/perfect.gif";
+        finalImage.classList.add("perfect-img");
+        finalImage.style.marginBottom = "30px";
+      } else {
+        finalImage.src = "images/lose2.gif";
+      }
+    
+      if (score === quizData.length) {
+        document.getElementById("perfect-sound").currentTime = 0;
+        document.getElementById("perfect-sound").play();
+      } else {
+        document.getElementById("imperfect-sound").currentTime = 0;
+        document.getElementById("imperfect-sound").play();
+      }
     }
-
-    finalScoreEl.style.color = "#00ff1a";
-    finalImage.classList.add("raised");
-    finalImage.style.width = (window.innerWidth <= 480) ? "150px" : "190px";
-
-    // On mobile only: reduce space between youwin.png and perfect.gif,
-    // and move perfect.gif (finalImage) slightly upward.
-    if (window.innerWidth <= 480) {
-      finalImage.style.marginTop = "-25px";    // move perfect.gif up
-      finalImage.style.marginBottom = "10px";    // reduce the gap below perfect.gif
-    } else {
-      finalImage.style.marginTop = "";
-      finalImage.style.marginBottom = "";
-    }
-
-    // Add overlay GIF for victory if not already present
-    if (!document.getElementById("confet-overlay")) {
-      let overlay = document.createElement("img");
-      overlay.id = "confet-overlay";
-      overlay.src = "images/confet.gif";
-      overlay.alt = "Overlay de victoire";
-      overlay.style.position = "absolute";
-      overlay.style.top = "0";
-      overlay.style.left = "0";
-      overlay.style.width = "100%";
-      overlay.style.height = "100%";
-      overlay.style.objectFit = "cover";
-      overlay.style.zIndex = "5";
-      resultPage.appendChild(overlay);
-    }
-  } else {
-    restartBtn.style.animation = "borderGlow2 2s ease-in-out infinite";
-    resultPage.style.background = "url('images/wall2.png') no-repeat center center";
-    resultHeader.src = "images/tryagain.png";
-
-    if (window.innerWidth <= 480) {
-      resultHeader.style.transform = "translateY(-40px)";
-      resultHeader.style.marginTop = "-40px";
-    } else {
-      resultHeader.style.transform = "translateY(-20px)";
-      resultHeader.style.marginTop = "-30px";
-    }
-
-    finalScoreEl.style.color = "red";
-    resultHeader.classList.add("windmill-shake");
-    finalImage.classList.remove("raised");
-    finalImage.style.width = "190px";
-    finalImage.style.transform = "";
-    setInterval(() => {
-      resultHeader.classList.remove("windmill-shake");
-      void resultHeader.offsetWidth;
-      resultHeader.classList.add("windmill-shake");
-    }, 2800);
-  }
-
-  resultPage.style.backgroundSize = "cover";
-  resultPage.style.backgroundPosition = "center";
-  finalScoreEl.textContent = `Score : ${score} sur ${quizData.length}`;
-
-  if (score === quizData.length) {
-    finalImage.src = "images/perfect.gif";
-	  finalImage.classList.add("perfect-img");
-	finalImage.style = "margin-bottom: 30px";
-	
-  } else {
-    finalImage.src = "images/lose2.gif";
-  }
-
-  if (score === quizData.length) {
-    document.getElementById("perfect-sound").currentTime = 0;
-    document.getElementById("perfect-sound").play();
-  } else {
-    document.getElementById("imperfect-sound").currentTime = 0;
-    document.getElementById("imperfect-sound").play();
-  }
-}
+    
     restartBtn.addEventListener("click", () => { window.location.reload(); });
     document.addEventListener("DOMContentLoaded", function() {
       var decorImage = document.querySelector('.pikachu');
