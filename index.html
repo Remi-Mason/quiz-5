@@ -1320,42 +1320,40 @@ shuffleArray(quizData);
       }
     });
     document.addEventListener("DOMContentLoaded", function(){
-  const indexModal = document.getElementById("index-modal");
-  const closeIndexModal = document.getElementById("close-index-modal");
-  const homeIndexBtn = document.getElementById("home-index-btn");
-  const resultIndexBtn = document.getElementById("result-index-btn");
-  
-  if(homeIndexBtn) {
-    homeIndexBtn.addEventListener("click", function(){
-      indexModal.style.display = "block";
+// Gestion du modal INDEX pour les deux boutons
+      const indexModal = document.getElementById("index-modal");
+      const closeIndexModal = document.getElementById("close-index-modal");
+      const homeIndexBtn = document.getElementById("home-index-btn");
+      const resultIndexBtn = document.getElementById("result-index-btn");
+      
+      if (homeIndexBtn) {
+        homeIndexBtn.addEventListener("click", function(){
+          console.log("Bouton INDEX accueil cliqué");
+          indexModal.style.display = "block";
+        });
+      }
+      
+      if (resultIndexBtn) {
+        resultIndexBtn.addEventListener("click", function(){
+          console.log("Bouton INDEX final cliqué");
+          indexModal.style.display = "block";
+        });
+      }
+      
+      if (closeIndexModal) {
+        closeIndexModal.addEventListener("click", function(){
+          indexModal.style.display = "none";
+        });
+      }
+      
+      const indexOptions = document.querySelectorAll("#index-modal .index-option");
+      indexOptions.forEach(button => {
+        button.addEventListener("click", function(){
+          window.location.href = button.dataset.url;
+        });
+      });
     });
-  }
   
-  if(resultIndexBtn) {
-    resultIndexBtn.addEventListener("click", function(){
-      indexModal.style.display = "block";
-    });
-  }
-  
-  if(closeIndexModal) {
-    closeIndexModal.addEventListener("click", function(){
-      indexModal.style.display = "none";
-    });
-  }
-  
-  const indexOptions = document.querySelectorAll("#index-modal .index-option");
-  indexOptions.forEach(button => {
-    button.addEventListener("click", function(){
-      window.location.href = button.dataset.url;
-    });
-  });
-});
-    if(resultIndexBtn) {
-  resultIndexBtn.addEventListener("click", function(){
-    console.log("Bouton INDEX final cliqué");
-    indexModal.style.display = "block";
-  });
-}
 
   </script>
 </body>
