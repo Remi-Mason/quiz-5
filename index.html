@@ -1319,7 +1319,7 @@ shuffleArray(quizData);
       }
     });
     document.addEventListener("DOMContentLoaded", function(){
-  const indexModal = document.getElementById("index-modal").style.display = "block";
+  const indexModal = document.getElementById("index-modal");
   const closeIndexModal = document.getElementById("close-index-modal");
   const homeIndexBtn = document.getElementById("home-index-btn");
   const resultIndexBtn = document.getElementById("result-index-btn");
@@ -1349,6 +1349,12 @@ shuffleArray(quizData);
     });
   });
 });
+    if(resultIndexBtn) {
+  resultIndexBtn.addEventListener("click", function(){
+    console.log("Bouton INDEX final cliqué");
+    indexModal.style.display = "block";
+  });
+}
 
   </script>
 </body>
